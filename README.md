@@ -36,7 +36,7 @@ API note: the local Cloudflare token can read existing zones but can’t create 
 
 ## What’s here
 
-One-page hospice parody: continuum of care, Head of Hospice Care portrait, patient board, visiting hours, admit CTA. Not a real hospital. Don’t send your grandma’s PC… unless that’s the joke.
+One-page hospice parody: continuum of care, Head of Hospice Care portrait, patient board, visiting hours, admit CTA, and a “happy costermer” link that is absolutely not a rickroll. Not a real hospital. Don’t send your grandma’s PC… unless that’s the joke.
 
 ## Logos & portraits
 

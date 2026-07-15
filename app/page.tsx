@@ -154,6 +154,14 @@ export default function HomePage() {
             <p className="mt-5 font-mono text-sm text-ink">
               “Have you said goodbye to the Save dialog?”
             </p>
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex text-sm font-semibold text-accent underline decoration-accent/40 underline-offset-4 transition hover:decoration-accent"
+            >
+              Get to know our happy costermer
+            </a>
           </div>
         </div>
       </section>

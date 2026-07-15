@@ -11,12 +11,28 @@ pnpm dev
 
 ## Deploy
 
-Vercel project linked to this repo. Point DNS:
+Vercel project: **stjoes-computer-hospice** (GitHub linked). Domains already attached:
 
-- `stjoeshospice.com` → Vercel
-- `www.stjoeshospice.com` → Vercel (optional redirect)
+- `stjoeshospice.com` → production
+- `www.stjoeshospice.com` → 308 → apex
 
-In Vercel → Project → Settings → Domains → add `stjoeshospice.com`.
+### DNS (Cloudflare registrar)
+
+Nameservers are still on Cloudflare (`erin` / `eugene`). Until DNS points at Vercel the public hostname won’t resolve.
+
+**Option A — DNS records (keep Cloudflare NS)** — DNS only / grey cloud:
+
+| Type | Name | Content |
+| --- | --- | --- |
+| A | `@` | `76.76.21.21` |
+| CNAME | `www` | `cname.vercel-dns.com` |
+
+**Option B — Vercel nameservers** — in Cloudflare → Domain Registration → stjoeshospice.com → update NS to:
+
+- `ns1.vercel-dns.com`
+- `ns2.vercel-dns.com`
+
+API note: the local Cloudflare token can read existing zones but can’t create `stjoeshospice.com` or edit its DNS yet — finish one of the options above (or drop a Zone.DNS Edit token) and it goes live.
 
 ## What’s here
 

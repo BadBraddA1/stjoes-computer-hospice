@@ -148,8 +148,8 @@ export default function HomePage() {
       </section>
 
       <section className="py-16 sm:py-20" id="leadership">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 sm:grid-cols-[auto_1fr] sm:gap-14 sm:px-10">
-          <div className="mx-auto">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 lg:grid-cols-[auto_1fr] lg:gap-14 lg:px-10">
+          <div className="mx-auto flex flex-col items-center gap-6 sm:flex-row sm:items-end sm:gap-8">
             <Image
               src="/head-of-care.png"
               alt="Head of Hospice Care — bearded tech with a headset, ready for your machine’s last words"
@@ -157,6 +157,25 @@ export default function HomePage() {
               height={288}
               className="h-56 w-56 rounded-full object-cover ring-4 ring-accent/35 sm:h-72 sm:w-72"
             />
+            <figure className="w-full max-w-[220px] shrink-0">
+              <div className="overflow-hidden rounded-2xl border border-line bg-ink shadow-[0_16px_40px_rgba(26,54,93,0.16)]">
+                <video
+                  className="aspect-[9/16] h-auto w-full object-cover"
+                  src="/head-of-care.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  preload="metadata"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <figcaption className="mt-3 text-center font-mono text-[11px] uppercase tracking-wider text-muted">
+                Bedside address · 5s
+              </figcaption>
+            </figure>
           </div>
           <div>
             <p className="font-mono text-xs font-medium uppercase tracking-[0.28em] text-accent">

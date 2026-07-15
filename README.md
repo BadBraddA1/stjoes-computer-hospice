@@ -36,7 +36,7 @@ API note: the local Cloudflare token can read existing zones but can’t create 
 
 ## What’s here
 
-Hospice parody site: continuum of care, Head of Hospice Care portrait, patient board, visiting hours, and an embedded “happy costermer” video that autoplays (muted — browsers won’t unmute without a click). No email admit button. Not a real hospital.
+Hospice parody site: continuum of care, Head of Hospice Care portrait **plus bedside video** (`public/head-of-care.mp4`, muted autoplay loop with controls), patient board, visiting hours, and an embedded “happy costermer” YouTube bit. No email admit button. Not a real hospital.
 
 ### We’re Hiring (`/hiring`)
 
@@ -66,3 +66,4 @@ In `public/`:
 | `logo-c.jpg` | Meramec edition |
 | `logo-icon.png` | Icon crop for favicon / footer |
 | `head-of-care.png` | Circular portrait — Head of Hospice Care (headset optional, empathy required) |
+| `head-of-care.mp4` | Short bedside address (Hedra) — shown beside the portrait on the home page |

@@ -128,6 +128,36 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="py-16 sm:py-20" id="leadership">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 sm:grid-cols-[auto_1fr] sm:gap-14 sm:px-10">
+          <div className="mx-auto">
+            <Image
+              src="/head-of-care.png"
+              alt="Head of Hospice Care — bearded tech with a headset, ready for your machine’s last words"
+              width={288}
+              height={288}
+              className="h-56 w-56 rounded-full object-cover ring-4 ring-accent/35 sm:h-72 sm:w-72"
+            />
+          </div>
+          <div>
+            <p className="font-mono text-xs font-medium uppercase tracking-[0.28em] text-accent">
+              Clinical leadership
+            </p>
+            <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
+              Head of Hospice Care
+            </h2>
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
+              On the headset so you don&apos;t have to be. He&apos;ll walk your tower through the five stages
+              of grief — Denial, Cache Clear, Bargaining with Tech Support, Depression (battery
+              warning), and Acceptance (power brick in the drawer forever).
+            </p>
+            <p className="mt-5 font-mono text-sm text-ink">
+              “Have you said goodbye to the Save dialog?”
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 sm:py-20" id="wards">
         <div className="mx-auto max-w-6xl px-6 sm:px-10">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">

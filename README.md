@@ -36,9 +36,9 @@ API note: the local Cloudflare token can read existing zones but can’t create 
 
 ## What’s here
 
-One-page hospice parody: patient board, visiting hours, admit CTA. Not a real hospital. Don’t send your grandma’s PC… unless that’s the joke.
+One-page hospice parody: continuum of care, Head of Hospice Care portrait, patient board, visiting hours, admit CTA. Not a real hospital. Don’t send your grandma’s PC… unless that’s the joke.
 
-## Logos
+## Logos & portraits
 
 In `public/`:
 
@@ -48,3 +48,4 @@ In `public/`:
 | `logo-a.jpg` | “We bring new life to your technology.” |
 | `logo-c.jpg` | Meramec edition |
 | `logo-icon.png` | Icon crop for favicon / footer |
+| `head-of-care.png` | Circular portrait — Head of Hospice Care (headset optional, empathy required) |

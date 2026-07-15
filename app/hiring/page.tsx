@@ -6,10 +6,10 @@ import { HiringQuiz } from "@/components/hiring-quiz"
 export const metadata: Metadata = {
   title: "We're Hiring | ST Joe's Computer Hospice",
   description:
-    "Join the ward. Or don't. First question: is your name Joe? Comfort care for dying machines — and one very exclusive hiring process.",
+    "Join the ward. Or don't. First question: is your name Joe 3? Comfort care for dying machines — and one very exclusive hiring process.",
   openGraph: {
     title: "We're Hiring | ST Joe's Computer Hospice",
-    description: "Is your name Joe? Answer carefully. Positions may or may not exist.",
+    description: "Is your name Joe 3? Answer carefully. Positions may or may not exist.",
   },
 }
 
@@ -21,7 +21,7 @@ export default function HiringPage() {
           {[0, 1].map((loop) => (
             <div key={loop} className="flex shrink-0 gap-10 px-6">
               <span>NOW HIRING: emotional support for hard drives</span>
-              <span>JOE NEED NOT APPLY (again)</span>
+              <span>JOE 3 NEED NOT APPLY (again)</span>
               <span>benefits: tissue boxes · no hope · free static</span>
               <span>sorry your resume is up</span>
             </div>

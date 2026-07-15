@@ -40,12 +40,12 @@ Hospice parody site: continuum of care, Head of Hospice Care portrait, patient b
 
 ### We’re Hiring (`/hiring`)
 
-Playful dead-end careers page. One intake question: **Is your name Joe?**
+Playful dead-end careers page. One intake question: **Is your name Joe 3?**
 
-- **Yes** → “Nice try. You don’t look like Joe.” (Joe already works here.)
-- **No** → “Good. You don’t want to work here.” (Benefits: tissue boxes and no hope.)
+- **Yes** → ~30 unique rejections (e.g. “Nice try. You don’t look like Joe 3.”).
+- **No** → ~30 unique wise-exit lines (e.g. “Good. You don’t want to work here.”).
 
-Linked from the home hero and footer. Still not a real job.
+“Try again” rotates punchlines without immediate repeats. Linked from the home hero and footer. Still not a real job.
 
 OG / Twitter preview (`app/opengraph-image.jpg`) shows the Head of Hospice Care portrait with brand colors — same pattern as the LECYC sites.
 

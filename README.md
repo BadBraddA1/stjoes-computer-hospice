@@ -42,6 +42,10 @@ OG / Twitter preview (`app/opengraph-image.jpg`) shows the Head of Hospice Care 
 
 Footer uses the standard BraddCorp line: “Powered By BraddCorp © YEAR. All Rights Reserved.” → https://braddcorp.com
 
+## Fake biz cards
+
+Print files live in [`print/biz-cards/`](print/biz-cards/) — open **`st-joes-biz-cards-letter.pdf`** for a 10-up Letter sheet (front + back with QR to the site). Details in that folder’s README.
+
 ## Logos & portraits
 
 In `public/`:

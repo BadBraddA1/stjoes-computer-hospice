@@ -28,9 +28,21 @@ const patients = [
 ]
 
 const visiting = [
-  "Morning shift: 8:00a–11:00a — for printers that jam emotionally",
-  "Afternoon quiet hours: 1:00p–4:00p — no forced firmware updates",
-  "Candlelight reboot: 7:00p–8:00p — optional hymn: Windows XP startup",
+  {
+    title: "Morning shift",
+    time: "8:00a–11:00a",
+    note: "For printers that jam emotionally",
+  },
+  {
+    title: "Afternoon quiet hours",
+    time: "1:00p–4:00p",
+    note: "No forced firmware updates",
+  },
+  {
+    title: "Candlelight reboot",
+    time: "7:00p–8:00p",
+    note: "Optional hymn: Windows XP startup",
+  },
 ]
 
 export default function HomePage() {
@@ -185,19 +197,21 @@ export default function HomePage() {
             </span>
           </div>
           <div className="mt-8 overflow-hidden rounded-2xl border border-line bg-ink text-card">
-            <div className="grid grid-cols-[1.2fr_0.8fr_1.4fr] gap-3 border-b border-white/10 px-5 py-3 font-mono text-[11px] uppercase tracking-wider text-white/55">
+            <div className="hidden gap-4 border-b border-white/10 px-5 py-3 font-mono text-[11px] uppercase tracking-wider text-white/55 sm:grid sm:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)_minmax(0,1.4fr)]">
               <span>Patient</span>
               <span>Status</span>
-              <span className="hidden sm:block">Notes</span>
+              <span>Notes</span>
             </div>
             {patients.map((patient) => (
               <div
                 key={patient.name}
-                className="grid grid-cols-1 gap-1 border-b border-white/10 px-5 py-4 last:border-b-0 sm:grid-cols-[1.2fr_0.8fr_1.4fr] sm:items-center sm:gap-3"
+                className="grid gap-1 border-b border-white/10 px-5 py-4 last:border-b-0 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)_minmax(0,1.4fr)] sm:items-baseline sm:gap-4"
               >
-                <span className="font-semibold">{patient.name}</span>
-                <span className="font-mono text-sm text-accent-soft">{patient.status}</span>
-                <span className="text-sm text-white/65">{patient.note}</span>
+                <span className="font-semibold leading-snug">{patient.name}</span>
+                <span className="font-mono text-sm leading-snug text-accent-soft">
+                  {patient.status}
+                </span>
+                <span className="text-sm leading-snug text-white/65">{patient.note}</span>
               </div>
             ))}
           </div>
@@ -205,26 +219,36 @@ export default function HomePage() {
       </section>
 
       <section className="border-y border-line bg-accent-soft/45 py-16 sm:py-20" id="hours">
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 sm:grid-cols-[1.1fr_0.9fr] sm:px-10">
+        <div className="mx-auto grid max-w-6xl items-start gap-8 px-6 lg:grid-cols-2 lg:gap-12 lg:px-10">
           <div>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-balance sm:text-4xl">
               Visiting Hours
             </h2>
-            <ul className="mt-6 space-y-4 text-muted">
-              {visiting.map((line) => (
-                <li key={line} className="flex gap-3 leading-relaxed">
-                  <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />
-                  <span>{line}</span>
+            <ul className="mt-8 space-y-5">
+              {visiting.map((slot) => (
+                <li key={slot.title} className="flex gap-3">
+                  <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" aria-hidden />
+                  <div className="min-w-0">
+                    <p className="font-semibold leading-snug text-ink">
+                      {slot.title}
+                      <span className="font-normal text-muted"> · </span>
+                      <span className="font-mono text-sm font-medium text-accent">{slot.time}</span>
+                    </p>
+                    <p className="mt-1 text-muted leading-relaxed">{slot.note}</p>
+                  </div>
                 </li>
               ))}
             </ul>
           </div>
           <aside className="rounded-2xl border border-line bg-card p-6 sm:p-8">
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-warn">Chaplain&apos;s Note</p>
-            <p className="mt-4 font-[family-name:var(--font-display)] text-2xl font-semibold leading-snug text-ink">
-              “It is not failure to unplug. It is grace with a ground pin.”
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-warn">
+              Chaplain&apos;s Note
             </p>
-            <p className="mt-4 text-sm text-muted">— Fr. Joe, Staff Tech-Priest</p>
+            <blockquote className="mt-4 font-[family-name:var(--font-display)] text-xl font-semibold leading-[1.35] tracking-tight text-ink text-pretty sm:text-2xl">
+              <p>It is not failure to unplug.</p>
+              <p className="mt-2">It is grace with a ground pin.</p>
+            </blockquote>
+            <p className="mt-5 text-sm text-muted">— Fr. Joe, Staff Tech-Priest</p>
           </aside>
         </div>
       </section>

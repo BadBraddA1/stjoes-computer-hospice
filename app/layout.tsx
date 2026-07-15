@@ -32,14 +32,15 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "ST Joe's Computer Hospice",
-    title: "ST Joe's Computer Hospice",
+    title: "ST Joe's Computer Hospice | Head of Hospice Care",
     description:
-      "Comfort care for dying machines. Last rites for hard drives. Sorry your time is up.",
+      "Meet the Head of Hospice Care. Comfort care for dying machines. Sorry your time is up.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ST Joe's Computer Hospice",
-    description: "Comfort care for dying machines. Sorry your time is up.",
+    title: "ST Joe's Computer Hospice | Head of Hospice Care",
+    description:
+      "Meet the Head of Hospice Care. Comfort care for dying machines. Sorry your time is up.",
   },
 }
 

@@ -38,6 +38,8 @@ API note: the local Cloudflare token can read existing zones but can’t create 
 
 One-page hospice parody: continuum of care, Head of Hospice Care portrait, patient board, visiting hours, and an embedded “happy costermer” video that autoplays (muted — browsers won’t unmute without a click). No email admit button. Not a real hospital.
 
+OG / Twitter preview (`app/opengraph-image.jpg`) shows the Head of Hospice Care portrait with brand colors — same pattern as the LECYC sites.
+
 ## Logos & portraits
 
 In `public/`:

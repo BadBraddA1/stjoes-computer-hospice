@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #e8efe8;
+  --bg-deep: #d5e0d6;
+  --ink: #1c2b22;
+  --muted: #4a5c52;
+  --card: #f4f7f3;
+  --line: #b7c4ba;
+  --accent: #2f6b4f;
+  --accent-soft: #c5ddd0;
+  --warn: #8a5a2b;
+  --glow: rgba(47, 107, 79, 0.18);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-deep: var(--bg-deep);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-warn: var(--warn);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 80% -10%, var(--glow), transparent 55%),
+    radial-gradient(900px 500px at 10% 10%, rgba(138, 90, 43, 0.08), transparent 50%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.anim-rise {
+  animation: rise 0.8s ease-out both;
+}
+
+.anim-rise-delay-1 {
+  animation: rise 0.85s ease-out 0.12s both;
+}
+
+.anim-rise-delay-2 {
+  animation: rise 0.9s ease-out 0.24s both;
+}
+
+.anim-pulse {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+
+.ticker-track {
+  animation: ticker 28s linear infinite;
+}

@@ -12,6 +12,7 @@
   --accent-soft: #d4e6cb;
   --warn: #8a5a2b;
   --glow: rgba(95, 148, 72, 0.16);
+  --band: #e4eee7;
 }
 
 @theme inline {
@@ -24,6 +25,7 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-warn: var(--warn);
+  --color-band: var(--band);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
@@ -35,16 +37,21 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
+  background: var(--bg);
 }
 
 body {
   margin: 0;
   min-height: 100%;
+  overflow-x: clip;
   color: var(--ink);
-  background:
-    radial-gradient(1200px 600px at 80% -10%, var(--glow), transparent 55%),
-    radial-gradient(900px 500px at 10% 10%, rgba(26, 54, 93, 0.06), transparent 50%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(900px 480px at 85% 0%, var(--glow), transparent 60%),
+    radial-gradient(700px 420px at 8% 12%, rgba(26, 54, 93, 0.05), transparent 55%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   font-family: var(--font-body), system-ui, sans-serif;
 }
 
@@ -101,11 +108,16 @@ body {
 
 .ticker-track {
   animation: ticker 28s linear infinite;
+  width: max-content;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  body {
+    background-attachment: scroll;
   }
 
   .anim-rise,

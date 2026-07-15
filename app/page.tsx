@@ -51,7 +51,7 @@ export default function HomePage() {
       <div className="overflow-hidden border-b border-line bg-ink text-card">
         <div className="ticker-track flex whitespace-nowrap py-2 font-mono text-xs tracking-wide uppercase">
           {[0, 1].map((loop) => (
-            <div key={loop} className="flex shrink-0 gap-10 px-6">
+            <div key={loop} className="flex shrink-0 gap-10 px-6" aria-hidden={loop === 1}>
               <span>ADMITTING: devices beyond repair</span>
               <span>CODE GREEN: fans still spinning</span>
               <span>sorry your time is up</span>
@@ -123,7 +123,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="border-y border-line bg-card/60 py-16 sm:py-20" id="care">
+      <section className="border-y border-line bg-card py-16 sm:py-20" id="care">
         <div className="mx-auto max-w-6xl px-6 sm:px-10">
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
             Our Continuum of Care
@@ -135,7 +135,7 @@ export default function HomePage() {
             {services.map((service) => (
               <article
                 key={service.title}
-                className="rounded-2xl border border-line bg-bg/80 p-6 shadow-[0_10px_40px_rgba(26,54,93,0.05)]"
+                className="rounded-2xl border border-line bg-bg p-6 shadow-[0_10px_40px_rgba(26,54,93,0.05)]"
               >
                 <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-ink">
                   {service.title}
@@ -218,8 +218,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-line bg-accent-soft/45 py-16 sm:py-20" id="hours">
-        <div className="mx-auto grid max-w-6xl items-start gap-8 px-6 lg:grid-cols-2 lg:gap-12 lg:px-10">
+      <section className="border-y border-line bg-band py-16 sm:py-20" id="hours">
+        <div className="mx-auto grid max-w-6xl items-start gap-8 px-6 sm:px-10 lg:grid-cols-2 lg:gap-12">
           <div>
             <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-balance sm:text-4xl">
               Visiting Hours
@@ -234,7 +234,7 @@ export default function HomePage() {
                       <span className="font-normal text-muted"> · </span>
                       <span className="font-mono text-sm font-medium text-accent">{slot.time}</span>
                     </p>
-                    <p className="mt-1 text-muted leading-relaxed">{slot.note}</p>
+                    <p className="mt-1 leading-relaxed text-muted">{slot.note}</p>
                   </div>
                 </li>
               ))}
@@ -244,7 +244,7 @@ export default function HomePage() {
             <p className="font-mono text-xs uppercase tracking-[0.22em] text-warn">
               Chaplain&apos;s Note
             </p>
-            <blockquote className="mt-4 font-[family-name:var(--font-display)] text-xl font-semibold leading-[1.35] tracking-tight text-ink text-pretty sm:text-2xl">
+            <blockquote className="mt-4 font-[family-name:var(--font-display)] text-xl font-semibold leading-[1.35] tracking-tight text-pretty text-ink sm:text-2xl">
               <p>It is not failure to unplug.</p>
               <p className="mt-2">It is grace with a ground pin.</p>
             </blockquote>

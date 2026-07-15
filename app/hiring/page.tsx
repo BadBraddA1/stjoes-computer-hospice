@@ -19,7 +19,7 @@ export default function HiringPage() {
       <div className="overflow-hidden border-b border-line bg-ink text-card">
         <div className="ticker-track flex whitespace-nowrap py-2 font-mono text-xs tracking-wide uppercase">
           {[0, 1].map((loop) => (
-            <div key={loop} className="flex shrink-0 gap-10 px-6">
+            <div key={loop} className="flex shrink-0 gap-10 px-6" aria-hidden={loop === 1}>
               <span>NOW HIRING: emotional support for hard drives</span>
               <span>JOE 3 NEED NOT APPLY (again)</span>
               <span>benefits: tissue boxes · no hope · free static</span>

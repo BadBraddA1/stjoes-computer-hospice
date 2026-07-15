@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { HappyCostermer } from "@/components/happy-costermer"
 
 const services = [
   {
@@ -155,9 +156,7 @@ export default function HomePage() {
               “Have you said goodbye to the Save dialog?”
             </p>
             <a
-              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-              target="_blank"
-              rel="noreferrer"
+              href="#happy-costermer"
               className="mt-6 inline-flex text-sm font-semibold text-accent underline decoration-accent/40 underline-offset-4 transition hover:decoration-accent"
             >
               Get to know our happy costermer
@@ -270,16 +269,12 @@ export default function HomePage() {
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg text-muted">
             Bring the device, the charger you lost twice, and any emotional support USB sticks.
-            We&apos;ll take it from here.
+            We&apos;ll take it from here. Meanwhile, meet our happiest costermer:
           </p>
-          <a
-            href="mailto:hello@stjoeshospice.com?subject=Admitting%20a%20device"
-            className="mt-8 inline-flex items-center rounded-full bg-ink px-8 py-3.5 text-sm font-semibold uppercase tracking-wide text-card transition hover:bg-accent"
-          >
-            Email Admissions
-          </a>
+          <HappyCostermer />
           <p className="mt-4 font-mono text-xs text-muted">
-            Not a real hospital. Definitely a real bit. Donations unpaid. Tears optional.
+            Not a real hospital. Definitely a real bit. Donations unpaid. Tears optional. Unmute if
+            your browser was polite.
           </p>
         </div>
       </section>

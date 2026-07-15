@@ -162,9 +162,6 @@ export default function HomePage() {
                 <video
                   className="aspect-[9/16] h-auto w-full object-cover"
                   src="/head-of-care.mp4"
-                  autoPlay
-                  muted
-                  loop
                   playsInline
                   controls
                   preload="metadata"

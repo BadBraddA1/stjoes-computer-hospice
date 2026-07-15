@@ -36,7 +36,7 @@ API note: the local Cloudflare token can read existing zones but can’t create 
 
 ## What’s here
 
-Hospice parody site: continuum of care, Head of Hospice Care portrait **plus bedside video** (`public/head-of-care.mp4`, muted autoplay loop with controls), patient board, visiting hours, and an embedded “happy costermer” YouTube bit. No email admit button. Not a real hospital.
+Hospice parody site: continuum of care, Head of Hospice Care portrait **plus bedside video** (`public/head-of-care.mp4`, click to play with controls), patient board, visiting hours, and an embedded “happy costermer” YouTube bit. No email admit button. Not a real hospital.
 
 ### We’re Hiring (`/hiring`)
 

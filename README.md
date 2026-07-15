@@ -36,7 +36,16 @@ API note: the local Cloudflare token can read existing zones but can’t create 
 
 ## What’s here
 
-One-page hospice parody: continuum of care, Head of Hospice Care portrait, patient board, visiting hours, and an embedded “happy costermer” video that autoplays (muted — browsers won’t unmute without a click). No email admit button. Not a real hospital.
+Hospice parody site: continuum of care, Head of Hospice Care portrait, patient board, visiting hours, and an embedded “happy costermer” video that autoplays (muted — browsers won’t unmute without a click). No email admit button. Not a real hospital.
+
+### We’re Hiring (`/hiring`)
+
+Playful dead-end careers page. One intake question: **Is your name Joe?**
+
+- **Yes** → “Nice try. You don’t look like Joe.” (Joe already works here.)
+- **No** → “Good. You don’t want to work here.” (Benefits: tissue boxes and no hope.)
+
+Linked from the home hero and footer. Still not a real job.
 
 OG / Twitter preview (`app/opengraph-image.jpg`) shows the Head of Hospice Care portrait with brand colors — same pattern as the LECYC sites.
 

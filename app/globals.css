@@ -102,3 +102,17 @@ body {
 .ticker-track {
   animation: ticker 28s linear infinite;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .anim-rise,
+  .anim-rise-delay-1,
+  .anim-rise-delay-2,
+  .anim-pulse,
+  .ticker-track {
+    animation: none !important;
+  }
+}

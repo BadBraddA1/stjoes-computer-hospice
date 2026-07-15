@@ -86,6 +86,12 @@ export default function HomePage() {
               >
                 Visit the Wards
               </a>
+              <a
+                href="/hiring"
+                className="inline-flex items-center rounded-full border border-line bg-card/80 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink backdrop-blur transition hover:border-accent"
+              >
+                We&apos;re Hiring
+              </a>
             </div>
             <p className="anim-pulse mt-8 font-mono text-xs text-warn">
               ● Code Slow — response times not guaranteed
@@ -288,7 +294,15 @@ export default function HomePage() {
                 ST Joe&apos;s Computer Hospice
               </p>
             </div>
-            <p className="text-sm text-white/65">stjoeshospice.com · sorry your time is up</p>
+            <div className="flex flex-col items-center gap-2 sm:items-end">
+              <a
+                href="/hiring"
+                className="text-sm font-semibold text-accent-soft transition hover:text-white"
+              >
+                We&apos;re hiring
+              </a>
+              <p className="text-sm text-white/65">stjoeshospice.com · sorry your time is up</p>
+            </div>
           </div>
           <div className="mt-8 border-t border-white/15 pt-6 text-center text-sm text-white/55">
             <p>

@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 const services = [
   {
     title: "Palliative Performance",
@@ -39,7 +41,7 @@ export default function HomePage() {
             <div key={loop} className="flex shrink-0 gap-10 px-6">
               <span>ADMITTING: devices beyond repair</span>
               <span>CODE GREEN: fans still spinning</span>
-              <span>NO HEROICS after Windows XP</span>
+              <span>sorry your time is up</span>
               <span>WIFI LAST WORDS welcome</span>
               <span>BRING YOUR OWN HDMI adapter</span>
             </div>
@@ -50,42 +52,55 @@ export default function HomePage() {
       <header className="relative overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.12]"
+          className="pointer-events-none absolute inset-0 opacity-[0.1]"
           style={{
             backgroundImage:
-              "linear-gradient(to right, #1c2b22 1px, transparent 1px), linear-gradient(to bottom, #1c2b22 1px, transparent 1px)",
+              "linear-gradient(to right, #1a365d 1px, transparent 1px), linear-gradient(to bottom, #1a365d 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
-        <div className="relative mx-auto flex min-h-[88vh] max-w-6xl flex-col justify-end px-6 pb-16 pt-20 sm:px-10 sm:pb-24">
-          <p className="anim-rise font-mono text-xs font-medium uppercase tracking-[0.28em] text-accent">
-            Est. whenever your laptop stopped charging
-          </p>
-          <h1 className="anim-rise-delay-1 mt-5 max-w-4xl font-[family-name:var(--font-display)] text-[clamp(3.2rem,9vw,6.4rem)] font-extrabold leading-[0.92] tracking-tight text-ink">
-            ST Joe&apos;s
-            <span className="block text-accent">Computer Hospice</span>
-          </h1>
-          <p className="anim-rise-delay-2 mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-            Comfort care for dying machines. We don&apos;t fix them. We sit with them.
-            We hold the mouse. We let go of the old drivers.
-          </p>
-          <div className="anim-rise-delay-2 mt-10 flex flex-wrap items-center gap-4">
-            <a
-              href="#admit"
-              className="inline-flex items-center rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-card transition hover:brightness-110"
-            >
-              Admit a Device
-            </a>
-            <a
-              href="#wards"
-              className="inline-flex items-center rounded-full border border-line bg-card/70 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink backdrop-blur transition hover:border-accent"
-            >
-              Visit the Wards
-            </a>
+        <div className="relative mx-auto grid min-h-[88vh] max-w-6xl items-center gap-10 px-6 py-16 sm:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6 lg:py-20">
+          <div className="order-2 lg:order-1">
+            <p className="anim-rise font-mono text-xs font-medium uppercase tracking-[0.28em] text-accent">
+              Est. whenever your laptop stopped charging
+            </p>
+            <h1 className="sr-only">ST Joe&apos;s Computer Hospice</h1>
+            <p className="anim-rise-delay-1 mt-5 max-w-xl font-[family-name:var(--font-display)] text-[clamp(2rem,5vw,3.25rem)] font-bold leading-[1.1] tracking-tight text-ink">
+              Comfort care for dying machines.
+            </p>
+            <p className="anim-rise-delay-2 mt-5 max-w-xl text-lg leading-relaxed text-muted">
+              We don&apos;t fix them. We sit with them. We hold the mouse. We let go of the old
+              drivers. <span className="italic text-accent">Sorry your time is up.</span>
+            </p>
+            <div className="anim-rise-delay-2 mt-10 flex flex-wrap items-center gap-4">
+              <a
+                href="#admit"
+                className="inline-flex items-center rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110"
+              >
+                Admit a Device
+              </a>
+              <a
+                href="#wards"
+                className="inline-flex items-center rounded-full border border-line bg-card/80 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink backdrop-blur transition hover:border-accent"
+              >
+                Visit the Wards
+              </a>
+            </div>
+            <p className="anim-pulse mt-8 font-mono text-xs text-warn">
+              ● Code Slow — response times not guaranteed
+            </p>
           </div>
-          <p className="anim-pulse mt-8 font-mono text-xs text-warn">
-            ● Code Slow — response times not guaranteed
-          </p>
+
+          <div className="anim-rise order-1 flex justify-center lg:order-2 lg:justify-end">
+            <Image
+              src="/logo.jpg"
+              alt="St Joe's Computer Hospice — we bring new life to your technology. Sorry your time is up."
+              width={520}
+              height={520}
+              priority
+              className="h-auto w-[min(100%,420px)] drop-shadow-[0_24px_50px_rgba(26,54,93,0.18)] sm:w-[460px] lg:w-[520px]"
+            />
+          </div>
         </div>
       </header>
 
@@ -101,7 +116,7 @@ export default function HomePage() {
             {services.map((service) => (
               <article
                 key={service.title}
-                className="rounded-2xl border border-line bg-bg/80 p-6 shadow-[0_10px_40px_rgba(28,43,34,0.05)]"
+                className="rounded-2xl border border-line bg-bg/80 p-6 shadow-[0_10px_40px_rgba(26,54,93,0.05)]"
               >
                 <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-ink">
                   {service.title}
@@ -135,7 +150,7 @@ export default function HomePage() {
             {patients.map((patient) => (
               <div
                 key={patient.name}
-                className="grid grid-cols-1 gap-1 border-b border-white/10 px-5 py-4 last:border-b-0 sm:grid-cols-[1.2fr_0.8fr_1.4fr] sm:gap-3 sm:items-center"
+                className="grid grid-cols-1 gap-1 border-b border-white/10 px-5 py-4 last:border-b-0 sm:grid-cols-[1.2fr_0.8fr_1.4fr] sm:items-center sm:gap-3"
               >
                 <span className="font-semibold">{patient.name}</span>
                 <span className="font-mono text-sm text-accent-soft">{patient.status}</span>
@@ -146,7 +161,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-line bg-accent-soft/40 py-16 sm:py-20" id="hours">
+      <section className="border-y border-line bg-accent-soft/45 py-16 sm:py-20" id="hours">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 sm:grid-cols-[1.1fr_0.9fr] sm:px-10">
           <div>
             <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
@@ -171,8 +186,47 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="border-b border-line py-14" id="marks">
+        <div className="mx-auto max-w-6xl px-6 sm:px-10">
+          <h2 className="font-[family-name:var(--font-display)] text-2xl font-bold tracking-tight sm:text-3xl">
+            Official Marks
+          </h2>
+          <p className="mt-2 text-sm text-muted">House variants for internal use only. Mostly.</p>
+          <div className="mt-8 grid gap-6 sm:grid-cols-3">
+            {[
+              { src: "/logo-a.jpg", label: "New life" },
+              { src: "/logo-b.jpg", label: "Sorry your time is up" },
+              { src: "/logo-c.jpg", label: "Meramec edition" },
+            ].map((mark) => (
+              <figure
+                key={mark.src}
+                className="rounded-2xl border border-line bg-white p-5 text-center shadow-[0_10px_30px_rgba(26,54,93,0.06)]"
+              >
+                <Image
+                  src={mark.src}
+                  alt={`St Joe's Computer Hospice logo — ${mark.label}`}
+                  width={360}
+                  height={360}
+                  className="mx-auto h-auto w-full max-w-[240px]"
+                />
+                <figcaption className="mt-3 font-mono text-xs uppercase tracking-wider text-muted">
+                  {mark.label}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 sm:py-24" id="admit">
         <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
+          <Image
+            src="/logo-icon.png"
+            alt=""
+            width={96}
+            height={96}
+            className="mx-auto mb-6 h-20 w-20"
+          />
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-5xl">
             Ready to say goodbye?
           </h2>
@@ -193,11 +247,14 @@ export default function HomePage() {
       </section>
 
       <footer className="border-t border-line py-8">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-10">
-          <p className="font-[family-name:var(--font-display)] text-base font-semibold text-ink">
-            ST Joe&apos;s Computer Hospice
-          </p>
-          <p>stjoeshospice.com · comfort care for dying machines</p>
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-sm text-muted sm:flex-row sm:justify-between sm:px-10">
+          <div className="flex items-center gap-3">
+            <Image src="/logo-icon.png" alt="" width={40} height={40} className="h-10 w-10" />
+            <p className="font-[family-name:var(--font-display)] text-base font-semibold text-ink">
+              ST Joe&apos;s Computer Hospice
+            </p>
+          </div>
+          <p>stjoeshospice.com · sorry your time is up</p>
         </div>
       </footer>
     </main>

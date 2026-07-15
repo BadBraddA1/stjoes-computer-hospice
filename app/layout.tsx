@@ -34,12 +34,12 @@ export const metadata: Metadata = {
     siteName: "ST Joe's Computer Hospice",
     title: "ST Joe's Computer Hospice",
     description:
-      "Comfort care for dying machines. Last rights for hard drives. Visiting hours daily.",
+      "Comfort care for dying machines. Last rites for hard drives. Sorry your time is up.",
   },
   twitter: {
     card: "summary_large_image",
     title: "ST Joe's Computer Hospice",
-    description: "Comfort care for dying machines.",
+    description: "Comfort care for dying machines. Sorry your time is up.",
   },
 }
 

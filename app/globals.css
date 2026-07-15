@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #e8efe8;
-  --bg-deep: #d5e0d6;
-  --ink: #1c2b22;
-  --muted: #4a5c52;
-  --card: #f4f7f3;
-  --line: #b7c4ba;
-  --accent: #2f6b4f;
-  --accent-soft: #c5ddd0;
+  /* Matched to logo: navy + medical green */
+  --bg: #eef3f0;
+  --bg-deep: #dde7e1;
+  --ink: #1a365d;
+  --muted: #4a5d73;
+  --card: #f7faf8;
+  --line: #c5d0c9;
+  --accent: #5f9448;
+  --accent-soft: #d4e6cb;
   --warn: #8a5a2b;
-  --glow: rgba(47, 107, 79, 0.18);
+  --glow: rgba(95, 148, 72, 0.16);
 }
 
 @theme inline {
@@ -42,7 +43,7 @@ body {
   color: var(--ink);
   background:
     radial-gradient(1200px 600px at 80% -10%, var(--glow), transparent 55%),
-    radial-gradient(900px 500px at 10% 10%, rgba(138, 90, 43, 0.08), transparent 50%),
+    radial-gradient(900px 500px at 10% 10%, rgba(26, 54, 93, 0.06), transparent 50%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
   font-family: var(--font-body), system-ui, sans-serif;
 }

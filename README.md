@@ -40,6 +40,8 @@ One-page hospice parody: continuum of care, Head of Hospice Care portrait, patie
 
 OG / Twitter preview (`app/opengraph-image.jpg`) shows the Head of Hospice Care portrait with brand colors — same pattern as the LECYC sites.
 
+Footer uses the standard BraddCorp line: “Powered By BraddCorp © YEAR. All Rights Reserved.” → https://braddcorp.com
+
 ## Logos & portraits
 
 In `public/`:

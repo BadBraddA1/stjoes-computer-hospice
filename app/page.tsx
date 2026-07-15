@@ -279,15 +279,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="border-t border-line py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-sm text-muted sm:flex-row sm:justify-between sm:px-10">
-          <div className="flex items-center gap-3">
-            <Image src="/logo-icon.png" alt="" width={40} height={40} className="h-10 w-10" />
-            <p className="font-[family-name:var(--font-display)] text-base font-semibold text-ink">
-              ST Joe&apos;s Computer Hospice
+      <footer className="border-t border-line bg-ink py-10 text-card">
+        <div className="mx-auto max-w-6xl px-6 sm:px-10">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+            <div className="flex items-center gap-3">
+              <Image src="/logo-icon.png" alt="" width={40} height={40} className="h-10 w-10" />
+              <p className="font-[family-name:var(--font-display)] text-base font-semibold">
+                ST Joe&apos;s Computer Hospice
+              </p>
+            </div>
+            <p className="text-sm text-white/65">stjoeshospice.com · sorry your time is up</p>
+          </div>
+          <div className="mt-8 border-t border-white/15 pt-6 text-center text-sm text-white/55">
+            <p>
+              Powered By{" "}
+              <a
+                href="https://braddcorp.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent-soft transition-colors hover:text-white"
+              >
+                BraddCorp
+              </a>{" "}
+              © {new Date().getFullYear()}. All Rights Reserved.
             </p>
           </div>
-          <p>stjoeshospice.com · sorry your time is up</p>
         </div>
       </footer>
     </main>

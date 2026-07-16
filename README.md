@@ -95,6 +95,10 @@ Previews use `next/og` (1200×630). Fancy Unicode is stripped so PNGs don’t co
 
 Print files in [`print/biz-cards/`](print/biz-cards/). Point QR codes at `https://stjoeshospice.com/?from=bizcard` for the welcome roast.
 
+### Promo flyers
+
+Seven Letter-size flyers + a combined PDF + 2-up handbills in [`print/flyers/`](print/flyers/). QR → `/?from=flyer`. Regenerate with `python3 print/flyers/generate.py`.
+
 ### Logos & portraits
 
 In `public/`: `logo.jpg` / variants, `logo-icon.png`, `head-of-care.png`, `head-of-care.mp4`.

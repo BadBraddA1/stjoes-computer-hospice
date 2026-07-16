@@ -1,8 +1,11 @@
 "use client"
 
+import Link from "next/link"
 import { FormEvent, useEffect, useId, useRef, useState } from "react"
 
-type Msg = { role: "you" | "chaplain"; text: string }
+type Guide = { href: string; label: string }
+
+type Msg = { role: "you" | "chaplain"; text: string; guide?: Guide | null }
 
 const OPEN_EVENT = "stjoe:open-chaplain"
 
@@ -11,7 +14,7 @@ export function openChaplainChat() {
   window.dispatchEvent(new CustomEvent(OPEN_EVENT))
 }
 
-async function askFrJoe(messages: Msg[]): Promise<string> {
+async function askFrJoe(messages: Msg[]): Promise<{ text: string; guide: Guide | null }> {
   const res = await fetch("/api/chaplain", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -22,11 +25,18 @@ async function askFrJoe(messages: Msg[]): Promise<string> {
       })),
     }),
   })
-  const data = (await res.json().catch(() => null)) as { text?: string; error?: string } | null
+  const data = (await res.json().catch(() => null)) as {
+    text?: string
+    guide?: Guide | null
+    error?: string
+  } | null
   if (!res.ok) {
     throw new Error(data?.error || "Fr. Joe stepped away briefly.")
   }
-  return data?.text?.trim() || "The chapel is quiet. Try again in a moment."
+  return {
+    text: data?.text?.trim() || "The chapel is quiet. Try again in a moment.",
+    guide: data?.guide ?? null,
+  }
 }
 
 export function ChaplainConversation({
@@ -41,7 +51,7 @@ export function ChaplainConversation({
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "chaplain",
-      text: "Peace be with your USB ports. What weighs on the hard drive today?",
+      text: "Peace be with your USB ports. What weighs on the hard drive today? If a ward would help, I'll walk you there.",
     },
   ])
   const [input, setInput] = useState("")
@@ -64,7 +74,7 @@ export function ChaplainConversation({
 
     try {
       const reply = await askFrJoe(next)
-      setMessages((m) => [...m, { role: "chaplain", text: reply }])
+      setMessages((m) => [...m, { role: "chaplain", text: reply.text, guide: reply.guide }])
     } catch {
       setMessages((m) => [
         ...m,
@@ -100,6 +110,14 @@ export function ChaplainConversation({
               {m.role === "you" ? "You" : "Fr. Joe"}
             </p>
             <p className="mt-1">{m.text}</p>
+            {m.role === "chaplain" && m.guide ? (
+              <Link
+                href={m.guide.href}
+                className="mt-3 inline-flex min-h-10 items-center rounded-full bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                {m.guide.label} →
+              </Link>
+            ) : null}
           </div>
         ))}
         {busy ? (

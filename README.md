@@ -40,6 +40,8 @@ vercel env add OPENAI_API_KEY
 ```
 
 Uses `gpt-4o-mini` through `/api/chaplain`. Stay-in-character system prompt lives in `lib/fr-joe.ts`.
+
+When a ward would help, Fr. Joe can **walk you into a gag room** (grief stages, Call Doctor, vigil, DNR, etc.) and the chat shows an **Enter room →** button. The Ask Fr. Joe widget stays open across pages so he can keep guiding after you arrive.
 - Easter eggs: type `joe3`, Konami, or **Ctrl+Alt+Delete** → gentle BSOD
 - Biz-card QR welcome: `/?from=bizcard` (also `card`, `qr`)
 - Footer **grief sessions** view counter (CounterAPI, once per tab session)

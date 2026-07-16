@@ -1,6 +1,6 @@
 import { generateText } from "ai"
 import { openai } from "@ai-sdk/openai"
-import { FR_JOE_SYSTEM, frJoeFallback, type ChatTurn } from "@/lib/fr-joe"
+import { FR_JOE_SYSTEM, frJoeFallback, parseFrJoeOutput, type ChatTurn } from "@/lib/fr-joe"
 
 export const runtime = "nodejs"
 export const maxDuration = 30
@@ -25,7 +25,10 @@ function normalize(messages: Incoming["messages"]): ChatTurn[] {
           ? "user"
           : null
     if (!role) continue
-    out.push({ role, content })
+    // Strip prior GUIDE lines from history so the model doesn't mimic UI chrome mid-thread
+    const stripped = content.replace(/\n?GUIDE:.*$/i, "").trim()
+    if (!stripped) continue
+    out.push({ role, content: stripped })
   }
   return out
 }
@@ -46,10 +49,8 @@ export async function POST(request: Request) {
 
   const key = process.env.OPENAI_API_KEY?.trim()
   if (!key) {
-    return Response.json({
-      text: frJoeFallback(lastUser.content, turns.length),
-      source: "chapel-notes",
-    })
+    const fallback = frJoeFallback(lastUser.content, turns.length)
+    return Response.json({ ...fallback, source: "chapel-notes" })
   }
 
   try {
@@ -57,25 +58,22 @@ export async function POST(request: Request) {
       model: openai("gpt-4o-mini"),
       system: FR_JOE_SYSTEM,
       messages: turns.map((t) => ({ role: t.role, content: t.content })),
-      temperature: 0.9,
-      maxOutputTokens: 180,
+      temperature: 0.85,
+      maxOutputTokens: 260,
     })
 
-    const cleaned = String(text || "")
-      .replace(/[\u2018\u2019]/g, "'")
-      .replace(/[\u201C\u201D]/g, '"')
-      .replace(/[\u2013\u2014]/g, "-")
-      .trim()
+    const parsed = parseFrJoeOutput(text || "")
+    if (!parsed.text || parsed.text.length < 2) {
+      return Response.json({ ...frJoeFallback(lastUser.content, turns.length), source: "chapel-notes" })
+    }
 
     return Response.json({
-      text: cleaned || frJoeFallback(lastUser.content, turns.length),
+      text: parsed.text,
+      guide: parsed.guide,
       source: "fr-joe",
     })
   } catch (error) {
     console.error("chaplain AI failed", error)
-    return Response.json({
-      text: frJoeFallback(lastUser.content, turns.length),
-      source: "chapel-notes",
-    })
+    return Response.json({ ...frJoeFallback(lastUser.content, turns.length), source: "chapel-notes" })
   }
 }

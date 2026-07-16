@@ -18,14 +18,14 @@ export default function DischargePage() {
         <PageHero
           kicker="Exit desk"
           title="Discharge papers"
-          copy="Sign them out. Pretend the power button was a rumor."
+          copy="Sign them out. The power button was only a rumor."
         />
       </div>
       <DischargePapers />
       <div className="no-print">
         <AmenityShowcase
           title="More wards"
-          copy="Not ready to leave? Call Doctor (hold music)."
+          copy="Not ready to leave? The on-call line remains open."
           excludeHref="/discharge"
           id="more-wards"
         />

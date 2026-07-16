@@ -35,6 +35,12 @@ function createHoldMusic(ctx: AudioContext) {
   }
 }
 
+function formatWait(seconds: number) {
+  const m = Math.floor(seconds / 60)
+  const s = seconds % 60
+  return `${m}:${String(s).padStart(2, "0")}`
+}
+
 export function CallDoctor() {
   const [onHold, setOnHold] = useState(false)
   const [seconds, setSeconds] = useState(0)
@@ -65,7 +71,9 @@ export function CallDoctor() {
       return
     }
 
-    const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+    const Ctx =
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
     const ctx = new Ctx()
     ctxRef.current = ctx
     if (ctx.state === "suspended") await ctx.resume()
@@ -81,20 +89,21 @@ export function CallDoctor() {
         Call Doctor
       </h2>
       <p className="mx-auto mt-4 max-w-md text-muted">
-        Press to dial the Head of Hospice Care. Spoiler: you get hold music. Forever. That is the
-        care plan.
+        Press to dial the Head of Hospice Care. Please hold.
       </p>
 
       <div className="mx-auto mt-10 flex h-40 w-40 items-center justify-center rounded-full border-4 border-accent/40 bg-ink shadow-[0_20px_50px_rgba(26,54,93,0.25)]">
-        <span className={`font-mono text-sm uppercase tracking-widest ${onHold ? "anim-pulse text-accent-soft" : "text-white/70"}`}>
+        <span
+          className={`font-mono text-sm uppercase tracking-widest ${onHold ? "anim-pulse text-accent-soft" : "text-white/70"}`}
+        >
           {onHold ? "On hold" : "Ready"}
         </span>
       </div>
 
       <p className="mt-6 font-mono text-sm text-muted">
         {onHold
-          ? `Estimated wait: ${Math.max(1, Math.floor(seconds / 15) + 1)} business eternities · ${seconds}s`
-          : "Your call is important. Your laptop is not."}
+          ? `Current wait · ${formatWait(seconds)} · your call is important`
+          : "Average wait times may vary by grief stage"}
       </p>
 
       <button
@@ -102,11 +111,8 @@ export function CallDoctor() {
         onClick={toggle}
         className="mt-8 inline-flex rounded-full bg-accent px-8 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110"
       >
-        {onHold ? "Hang up (coward)" : "Call Doctor"}
+        {onHold ? "End call" : "Call Doctor"}
       </button>
-      <p className="mt-4 font-mono text-xs text-muted">
-        Audio: synthetic hold music only. No doctor will answer. Ever.
-      </p>
     </div>
   )
 }

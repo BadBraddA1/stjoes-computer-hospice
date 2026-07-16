@@ -126,9 +126,6 @@ export function MemorialWall() {
         >
           Etch on the wall
         </button>
-        <p className="mt-3 font-mono text-xs text-muted">
-          Your notes stay on this device. The cloud is also in hospice.
-        </p>
       </form>
 
       <ul className="mt-10 space-y-4">

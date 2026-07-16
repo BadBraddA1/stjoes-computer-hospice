@@ -62,8 +62,7 @@ export function DoctorsNote() {
           care, not productivity. Recommended treatment: unplug, drawer, soft lighting.
         </p>
         <p className="mt-8 text-sm text-muted">
-          Signed {issued} — Head of Hospice Care (headset optional). Not a real medical document.
-          Definitely a real bit.
+          Signed {issued} — Head of Hospice Care, ST Joe&apos;s Computer Hospice.
         </p>
         <p className="mt-6 font-mono text-xs uppercase tracking-[0.2em] text-warn">
           sorry your time is up

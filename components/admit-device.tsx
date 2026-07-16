@@ -26,7 +26,7 @@ export function AdmitDevice() {
         <p className="mt-4 font-[family-name:var(--font-display)] text-3xl font-bold">{caseId}</p>
         <p className="mx-auto mt-4 max-w-md text-white/70">
           <strong className="text-card">{device || "Unnamed device"}</strong> is on comfort care for:{" "}
-          {symptom}. No email will arrive. Tears optional.
+          {symptom}. Please retain this number for visiting hours.
         </p>
         <button
           type="button"
@@ -49,7 +49,7 @@ export function AdmitDevice() {
     >
       <p className="font-mono text-xs uppercase tracking-[0.22em] text-accent">Admit a device</p>
       <p className="mt-2 text-sm text-muted">
-        No inbox. No callback. You get a solemn case number and our thoughts.
+        Complete intake for a case number and comfort-care placement.
       </p>
       <label className="mt-5 block">
         <span className="text-sm text-muted">Device name</span>

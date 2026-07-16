@@ -18,7 +18,7 @@ export const amenities = [
     ward: "WARD-03",
     badge: "On-call",
     title: "Call Doctor",
-    copy: "Dial the Head of Hospice Care. You only get hold music. That is the point.",
+    copy: "Dial the Head of Hospice Care. Please hold for the next available attendant.",
   },
   {
     href: "/dnr",
@@ -67,7 +67,7 @@ export const amenities = [
     ward: "WARD-HR",
     badge: "Careers",
     title: "We're hiring",
-    copy: "One question. Is your name Joe 3? Spoiler: nobody gets the job.",
+    copy: "One question. Is your name Joe 3?",
   },
 ] as const
 

@@ -58,7 +58,7 @@ export function LastWordsForm() {
     >
       <p className="font-mono text-xs uppercase tracking-[0.22em] text-accent">Last words</p>
       <p className="mt-2 text-sm text-muted">
-        Drop a one-liner into the lobby ticker. Kept on this device. The cloud is grieving too.
+        Leave a one-liner for the lobby ticker.
       </p>
       <input
         value={text}

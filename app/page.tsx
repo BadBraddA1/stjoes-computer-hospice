@@ -327,15 +327,14 @@ export default function HomePage() {
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg text-muted">
             Bring the device, the charger you lost twice, and any emotional support USB sticks.
-            Admit below for a fake case number — then meet our happiest costermer:
+            Complete admission below, then meet our happiest costermer:
           </p>
           <div className="mt-10">
             <AdmitDevice />
           </div>
           <HappyCostermer />
           <p className="mt-4 font-mono text-xs text-muted">
-            Not a real hospital. Definitely a real bit. Donations unpaid. Tears optional. Unmute if
-            your browser was polite. Type <span className="text-ink">joe3</span> if you dare.
+            Donations unpaid. Tissues provided. Unmute if your browser was polite.
           </p>
         </div>
       </section>

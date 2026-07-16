@@ -63,7 +63,7 @@ export default function HiringPage() {
         </h2>
         <HiringQuiz />
         <p className="mx-auto mt-10 max-w-md text-center font-mono text-xs text-muted">
-          Not a real job. Definitely a real bit. Equal opportunity: all applicants equally unhired.
+          Equal opportunity: all applicants carefully reviewed.
         </p>
       </section>
 

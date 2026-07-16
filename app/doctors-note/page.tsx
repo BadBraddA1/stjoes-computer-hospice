@@ -13,7 +13,7 @@ export default function DoctorsNotePage() {
     <main className="flex-1">
       <div className="no-print">
         <PageTicker
-          items={["physician excuse", "terminal update", "not a real note", "sorry your time is up"]}
+          items={["physician excuse", "terminal update", "comfort care recommended", "sorry your time is up"]}
         />
         <PageHero
           kicker="Excuse ministry"

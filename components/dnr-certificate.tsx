@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useMemo, useState } from "react"
+import { downloadStJoePdf, pdfSlug } from "@/lib/stjoe-pdf"
 
 const SITE_URL = "https://stjoeshospice.com"
 const QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&color=1a365d&bgcolor=f7faf8&data=${encodeURIComponent(SITE_URL)}`
@@ -57,6 +58,20 @@ export function DnrCertificate() {
 
   const device = name.trim() || "Unnamed Device"
   const signed = owner.trim() || "Next of Kin (USB)"
+
+  async function downloadPdf() {
+    setBusy(true)
+    try {
+      await downloadStJoePdf(
+        [{ kind: "dnr", machine: device, owner: signed, issued }],
+        `st-joes-dnr-${pdfSlug(device)}.pdf`
+      )
+    } catch {
+      alert("PDF printer jammed. Try Print instead.")
+    } finally {
+      setBusy(false)
+    }
+  }
 
   async function downloadScreensaver() {
     setBusy(true)
@@ -213,22 +228,30 @@ export function DnrCertificate() {
       <div className="no-print mb-8 flex flex-wrap justify-center gap-3">
         <button
           type="button"
-          onClick={downloadScreensaver}
+          onClick={() => void downloadPdf()}
           disabled={busy}
-          className="inline-flex items-center rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110 disabled:opacity-60"
+          className="inline-flex min-h-11 items-center rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110 disabled:opacity-60"
         >
-          {busy ? "Rendering…" : "Download screensaver (1920×1080)"}
+          {busy ? "Working…" : "Download ST Joe's PDF"}
+        </button>
+        <button
+          type="button"
+          onClick={() => void downloadScreensaver()}
+          disabled={busy}
+          className="inline-flex min-h-11 items-center rounded-full border border-line bg-card px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition hover:border-accent disabled:opacity-60"
+        >
+          Screensaver PNG (1920×1080)
         </button>
         <button
           type="button"
           onClick={() => window.print()}
-          className="inline-flex items-center rounded-full border border-line bg-card px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition hover:border-accent"
+          className="inline-flex min-h-11 items-center rounded-full border border-line bg-card px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition hover:border-accent"
         >
-          Print / Save as PDF
+          Print
         </button>
       </div>
       <p className="no-print mb-8 text-center font-mono text-xs text-muted">
-        PNG wallpaper / screensaver image with logo + QR to stjoeshospice.com
+        Letter PDF certificate · or PNG wallpaper with logo + QR to stjoeshospice.com
       </p>
 
       <article className="dnr-sheet rounded-[28px] border-2 border-ink bg-card p-8 shadow-[0_20px_50px_rgba(26,54,93,0.12)] sm:p-12">

@@ -13,7 +13,7 @@ export default function PackPage() {
       ticker={["certificate pack", "admit to condolence", "download the send-off"]}
       kicker="Paperwork bundle"
       title="Certificate pack"
-      copy="One machine. Four documents. Zero recovery."
+      copy="One machine. One branded 5-page ST Joe's PDF. Zero recovery."
       excludeHref="/pack"
     >
       <CertificatePack />

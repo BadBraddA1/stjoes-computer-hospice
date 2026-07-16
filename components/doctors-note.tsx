@@ -2,12 +2,14 @@
 
 import { useMemo, useState } from "react"
 import { ShareButtons } from "@/components/share-buttons"
+import { downloadStJoePdf, pdfSlug } from "@/lib/stjoe-pdf"
 
 const SITE = "https://stjoeshospice.com"
 
 export function DoctorsNote() {
   const [name, setName] = useState("OptiPlex")
   const [days, setDays] = useState("3")
+  const [busy, setBusy] = useState(false)
   const issued = useMemo(
     () =>
       new Date().toLocaleDateString("en-US", {
@@ -19,6 +21,27 @@ export function DoctorsNote() {
   )
   const device = name.trim() || "the device"
   const shareUrl = `${SITE}/doctors-note?for=${encodeURIComponent(device)}`
+
+  async function downloadPdf() {
+    setBusy(true)
+    try {
+      await downloadStJoePdf(
+        [
+          {
+            kind: "doctors-note",
+            machine: device,
+            extra: days.trim() || "several",
+            issued,
+          },
+        ],
+        `st-joes-doctors-note-${pdfSlug(device)}.pdf`
+      )
+    } catch {
+      alert("PDF printer jammed. Try Print instead.")
+    } finally {
+      setBusy(false)
+    }
+  }
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-12 sm:px-10">
@@ -43,10 +66,18 @@ export function DoctorsNote() {
       <div className="no-print mb-8 flex flex-wrap justify-center gap-3">
         <button
           type="button"
-          onClick={() => window.print()}
-          className="inline-flex min-h-11 rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          onClick={() => void downloadPdf()}
+          disabled={busy}
+          className="inline-flex min-h-11 rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
         >
-          Print / Save as PDF
+          {busy ? "Printing PDF…" : "Download ST Joe's PDF"}
+        </button>
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="inline-flex min-h-11 rounded-full border border-line bg-card px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          Print
         </button>
         <ShareButtons url={shareUrl} title={`Doctor's note for ${device} — ST Joe's`} />
       </div>

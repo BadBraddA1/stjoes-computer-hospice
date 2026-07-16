@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react"
 import Link from "next/link"
+import { downloadStJoePdf, packFilename } from "@/lib/stjoe-pdf"
 
 const STEPS = [
   {
@@ -30,21 +31,12 @@ const STEPS = [
   },
 ] as const
 
-function downloadText(filename: string, body: string) {
-  const blob = new Blob([body], { type: "text/plain;charset=utf-8" })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement("a")
-  a.href = url
-  a.download = filename
-  a.click()
-  URL.revokeObjectURL(url)
-}
-
 export function CertificatePack() {
   const [machine, setMachine] = useState("Dell OptiPlex ’09")
   const [owner, setOwner] = useState("")
   const [step, setStep] = useState(0)
   const [packed, setPacked] = useState(false)
+  const [busy, setBusy] = useState(false)
 
   function onStart(e: FormEvent) {
     e.preventDefault()
@@ -52,49 +44,46 @@ export function CertificatePack() {
     setPacked(false)
   }
 
-  function advance() {
+  async function advance() {
     if (step < STEPS.length - 1) {
       setStep((s) => s + 1)
       return
     }
+
     const name = machine.trim() || "Unnamed Device"
     const kin = owner.trim() || "Next of Kin (USB)"
     const caseId = `GRIEF-${100 + Math.floor(Math.random() * 899)}`
-    const pack = [
-      `ST JOE'S COMPUTER HOSPICE — CERTIFICATE PACK`,
-      `Case: ${caseId}`,
-      `Patient: ${name}`,
-      `Next of kin: ${kin}`,
-      ``,
-      `1. ADMISSION`,
-      `   Comfort care authorized. Visiting hours apply.`,
-      ``,
-      `2. DNR`,
-      `   Do not resuscitate. Do not force firmware.`,
-      ``,
-      `3. DISCHARGE`,
-      `   Released against medical advice. Still won't boot.`,
-      ``,
-      `4. CONDOLENCES`,
-      `   We're sorry for your ${name}. Sorry your time is up.`,
-      ``,
-      `stjoeshospice.com`,
-    ].join("\n")
 
-    downloadText(`st-joes-pack-${name.replace(/\s+/g, "-").slice(0, 24)}.txt`, pack)
-    downloadText(
-      `st-joes-dnr-${name.replace(/\s+/g, "-").slice(0, 24)}.txt`,
-      `DNR — ${name}\nSigned: ${kin}\nDo not resuscitate. Do not update.\nST Joe's Computer Hospice`
-    )
-    downloadText(
-      `st-joes-discharge-${name.replace(/\s+/g, "-").slice(0, 24)}.txt`,
-      `DISCHARGE — ${name}\nDisposition: Against medical advice\nStill won't boot. Officially.\nST Joe's Computer Hospice`
-    )
-    downloadText(
-      `st-joes-condolence-${name.replace(/\s+/g, "-").slice(0, 24)}.txt`,
-      `With sympathy for ${name}.\nFrom ${kin}.\nSorry your time is up.\nST Joe's Computer Hospice`
-    )
-    setPacked(true)
+    setBusy(true)
+    try {
+      await downloadStJoePdf(
+        [
+          { kind: "cover", machine: name, owner: kin, caseId },
+          { kind: "admission", machine: name, owner: kin, caseId },
+          { kind: "dnr", machine: name, owner: kin, caseId },
+          {
+            kind: "discharge",
+            machine: name,
+            owner: kin,
+            caseId,
+            extra: "Discharged against medical advice",
+          },
+          {
+            kind: "condolence",
+            machine: name,
+            owner: kin,
+            caseId,
+            extra: `May its fans spin gently in memory. We're sorry for your ${name}.`,
+          },
+        ],
+        packFilename(name)
+      )
+      setPacked(true)
+    } catch {
+      alert("The PDF printer jammed emotionally. Try again in a moment.")
+    } finally {
+      setBusy(false)
+    }
   }
 
   const current = STEPS[step]
@@ -106,7 +95,7 @@ export function CertificatePack() {
         Certificate pack
       </h2>
       <p className="mx-auto mt-3 max-w-md text-center text-muted">
-        Walk admit → DNR → discharge → condolence. Download the whole send-off.
+        Walk admit → DNR → discharge → condolence. Download one branded ST Joe&apos;s PDF.
       </p>
 
       <form onSubmit={onStart} className="mt-8 space-y-4 rounded-2xl border border-line bg-card p-6">
@@ -156,16 +145,22 @@ export function CertificatePack() {
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <button
           type="button"
-          onClick={advance}
-          className="inline-flex min-h-11 rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          onClick={() => void advance()}
+          disabled={busy}
+          className="inline-flex min-h-11 rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
         >
-          {step < STEPS.length - 1 ? `Complete ${current.title} →` : "Download pack (4 files)"}
+          {busy
+            ? "Printing PDF…"
+            : step < STEPS.length - 1
+              ? `Complete ${current.title} →`
+              : "Download ST Joe's PDF pack"}
         </button>
       </div>
 
       {packed ? (
         <p className="mt-6 text-center text-muted" role="status">
-          Pack downloaded. Four text certificates landed in your downloads. The printers are weeping proudly.
+          Pack downloaded — a 5-page letter PDF (cover + four certificates). The printers are weeping
+          proudly.
         </p>
       ) : null}
     </div>

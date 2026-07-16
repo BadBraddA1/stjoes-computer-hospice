@@ -3,12 +3,14 @@
 import Image from "next/image"
 import { useMemo, useState } from "react"
 import { ShareButtons } from "@/components/share-buttons"
+import { downloadStJoePdf, pdfSlug } from "@/lib/stjoe-pdf"
 
 const SITE = "https://stjoeshospice.com"
 
 export function DischargePapers() {
   const [name, setName] = useState("ThinkPad T420")
   const [reason, setReason] = useState("Discharged against medical advice")
+  const [busy, setBusy] = useState(false)
   const issued = useMemo(
     () =>
       new Date().toLocaleDateString("en-US", {
@@ -20,6 +22,28 @@ export function DischargePapers() {
   )
   const device = name.trim() || "Unnamed Device"
   const shareUrl = `${SITE}/discharge?for=${encodeURIComponent(device)}`
+
+  async function downloadPdf() {
+    setBusy(true)
+    try {
+      await downloadStJoePdf(
+        [
+          {
+            kind: "discharge",
+            machine: device,
+            owner: "Next of Kin (USB)",
+            extra: reason,
+            issued,
+          },
+        ],
+        `st-joes-discharge-${pdfSlug(device)}.pdf`
+      )
+    } catch {
+      alert("PDF printer jammed. Try Print instead.")
+    } finally {
+      setBusy(false)
+    }
+  }
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-12 sm:px-10">
@@ -49,10 +73,18 @@ export function DischargePapers() {
       <div className="no-print mb-8 flex flex-wrap justify-center gap-3">
         <button
           type="button"
-          onClick={() => window.print()}
-          className="inline-flex min-h-11 rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          onClick={() => void downloadPdf()}
+          disabled={busy}
+          className="inline-flex min-h-11 rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
         >
-          Print / Save as PDF
+          {busy ? "Printing PDF…" : "Download ST Joe's PDF"}
+        </button>
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="inline-flex min-h-11 rounded-full border border-line bg-card px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          Print
         </button>
         <ShareButtons url={shareUrl} title={`Discharge papers for ${device} — ST Joe's`} />
       </div>

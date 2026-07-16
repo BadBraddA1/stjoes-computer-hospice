@@ -68,7 +68,9 @@ Home campus is a **hospital floor directory** (wings, room numbers, “You are h
 | `/bingo` | Visiting-hours symptom bingo → Code Beige |
 | `/family` | Family conference → always hospice |
 | `/soundboard` | Web-audio pads (fan, HDD click, XP, hold sting…) |
-| `/pack` | Certificate pack: admit → DNR → discharge → condolence downloads |
+| `/pack` | Certificate pack → one branded **5-page ST Joe's PDF** (cover + admit/DNR/discharge/condolence) |
+
+Paperwork wards (**DNR**, **discharge**, **doctor's note**) also offer **Download ST Joe's PDF** (letter-size, navy/green frame, logo). Pack no longer dumps `.txt` files.
 | `/hiring` | Joe 3 quiz + benefits lounge, visitor badge, resume reject |
 
 Home ward cards open bits **inline**. Full pages remain for sharing (`#ward-call-doctor`, etc.).

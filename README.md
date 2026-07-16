@@ -53,7 +53,7 @@ Hospice parody site with:
 | `/condolences` | Condolence card (`?machine=&from=&line=`) — **dynamic Open Graph** + PNG download |
 | `/hiring` | Joe 3 hiring quiz |
 
-Amenity **cards** show on the home page (Patient amenities / Campus directory) and again as “More wards” on each amenity page — not footer-only.
+**Interactive campus on the home page:** ward cards open the real bits inline (flowchart, grief quiz, DNR, memorial, vigil, condolences, hiring). Full routes remain for sharing / deep links (`#ward-vigil`, etc.). “More wards” on amenity pages uses the same interactive cards.
 
 ### Dynamic Open Graph
 

@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { HappyCostermer } from "@/components/happy-costermer"
-import { AmenityShowcase } from "@/components/amenity-showcase"
+import { InteractiveWards } from "@/components/interactive-wards"
 import { SiteFooter } from "@/components/site-chrome"
 
 const services = [
@@ -104,13 +104,7 @@ export default function HomePage() {
                 href="#amenities"
                 className="inline-flex items-center rounded-full border border-line bg-card/80 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink backdrop-blur transition hover:border-accent"
               >
-                Patient Amenities
-              </a>
-              <a
-                href="/hiring"
-                className="inline-flex items-center rounded-full border border-line bg-card/80 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink backdrop-blur transition hover:border-accent"
-              >
-                We&apos;re Hiring
+                Play the Campus
               </a>
             </div>
             <p className="anim-pulse mt-8 font-mono text-xs text-warn">
@@ -131,7 +125,9 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="border-y border-line bg-card py-16 sm:py-20" id="care">
+      <InteractiveWards defaultOpen="/is-it-time" />
+
+      <section className="border-y border-line bg-band py-16 sm:py-20" id="care">
         <div className="mx-auto max-w-6xl px-6 sm:px-10">
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
             Our Continuum of Care
@@ -143,7 +139,7 @@ export default function HomePage() {
             {services.map((service) => (
               <article
                 key={service.title}
-                className="rounded-2xl border border-line bg-bg p-6 shadow-[0_10px_40px_rgba(26,54,93,0.05)]"
+                className="rounded-2xl border border-line bg-card p-6 shadow-[0_10px_40px_rgba(26,54,93,0.05)]"
               >
                 <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-ink">
                   {service.title}
@@ -154,8 +150,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      <AmenityShowcase />
 
       <section className="py-16 sm:py-20" id="leadership">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 lg:grid-cols-[auto_1fr] lg:gap-14 lg:px-10">

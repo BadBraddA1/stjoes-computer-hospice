@@ -52,7 +52,7 @@ Hospice parody site with:
 | --- | --- |
 | `/is-it-time` | Yes/no flowchart |
 | `/grief` | Five stages quiz |
-| `/call-doctor` | **Call Doctor** — on-hold music while you wait for care |
+| `/call-doctor` | **Call Doctor** — hold music + live queue # that keeps rising as Care+ cuts ahead |
 | `/dnr` | DNR certificate — 1920×1080 screensaver PNG (logo + QR) or print |
 | `/discharge` | Discharge papers |
 | `/doctors-note` | Fake doctor’s excuse note |

@@ -18,7 +18,7 @@ export const amenities = [
     ward: "WARD-03",
     badge: "On-call",
     title: "Call Doctor",
-    copy: "Dial the Head of Hospice Care. Please hold for the next available attendant.",
+    copy: "Hold queue with a live counter — Care+ callers keep cutting ahead.",
   },
   {
     href: "/dnr",

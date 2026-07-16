@@ -97,7 +97,7 @@ Print files in [`print/biz-cards/`](print/biz-cards/). Point QR codes at `https:
 
 ### Promo flyers
 
-Seven Letter-size flyers + a combined PDF + 2-up handbills in [`print/flyers/`](print/flyers/). QR → `/?from=flyer`. Regenerate with `python3 print/flyers/generate.py`.
+Seven Letter-size **ad-style** flyers (slow computer / does it need help / PSA / coupon energy) + combined PDF + 2-up handbills in [`print/flyers/`](print/flyers/). QR → `/?from=flyer`. Regenerate with `python3 print/flyers/generate.py`.
 
 ### Logos & portraits
 

@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { HappyCostermer } from "@/components/happy-costermer"
+import { AmenityShowcase } from "@/components/amenity-showcase"
 import { SiteFooter } from "@/components/site-chrome"
-import { amenities } from "@/lib/amenities"
 
 const services = [
   {
@@ -101,6 +101,12 @@ export default function HomePage() {
                 Visit the Wards
               </a>
               <a
+                href="#amenities"
+                className="inline-flex items-center rounded-full border border-line bg-card/80 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink backdrop-blur transition hover:border-accent"
+              >
+                Patient Amenities
+              </a>
+              <a
                 href="/hiring"
                 className="inline-flex items-center rounded-full border border-line bg-card/80 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink backdrop-blur transition hover:border-accent"
               >
@@ -148,6 +154,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <AmenityShowcase />
 
       <section className="py-16 sm:py-20" id="leadership">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 lg:grid-cols-[auto_1fr] lg:gap-14 lg:px-10">
@@ -268,31 +276,6 @@ export default function HomePage() {
             </blockquote>
             <p className="mt-5 text-sm text-muted">— Fr. Joe, Staff Tech-Priest</p>
           </aside>
-        </div>
-      </section>
-
-      <section className="border-b border-line py-16 sm:py-20" id="amenities">
-        <div className="mx-auto max-w-6xl px-6 sm:px-10">
-          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-balance sm:text-4xl">
-            Patient amenities
-          </h2>
-          <p className="mt-3 max-w-2xl text-muted">
-            Extra wards for when sitting quietly with a dying tower isn&apos;t interactive enough.
-          </p>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {amenities.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="rounded-2xl border border-line bg-card p-6 transition hover:border-accent"
-              >
-                <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-ink">
-                  {item.title}
-                </h3>
-                <p className="mt-3 leading-relaxed text-muted">{item.copy}</p>
-              </a>
-            ))}
-          </div>
         </div>
       </section>
 

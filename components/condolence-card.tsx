@@ -1,30 +1,47 @@
 "use client"
 
-import { useMemo, useRef, useState } from "react"
-
-const lines = [
-  "The fans are quiet now. The icons can rest.",
-  "May its ports find peace and its dust find dignity.",
-  "Gone from the dock, never from the drawer of chargers.",
-  "It gave you spreadsheets, memes, and one final blue screen.",
-]
+import { useEffect, useMemo, useRef, useState } from "react"
+import { useSearchParams } from "next/navigation"
+import { CONDOLENCE_LINES, condolenceTitle } from "@/lib/condolences"
 
 export function CondolenceCard() {
-  const [machine, setMachine] = useState("OptiPlex")
-  const [from, setFrom] = useState("")
-  const [lineIndex, setLineIndex] = useState(0)
+  const params = useSearchParams()
+  const [machine, setMachine] = useState(params.get("machine") || "OptiPlex")
+  const [from, setFrom] = useState(params.get("from") || "")
+  const [lineIndex, setLineIndex] = useState(Number(params.get("line") || "0") || 0)
+  const [copied, setCopied] = useState(false)
   const cardRef = useRef<HTMLElement>(null)
 
-  const line = lines[lineIndex % lines.length]
-  const title = useMemo(() => {
-    const m = machine.trim() || "your machine"
-    return `We’re sorry for your ${m}.`
-  }, [machine])
+  useEffect(() => {
+    setMachine(params.get("machine") || "OptiPlex")
+    setFrom(params.get("from") || "")
+    setLineIndex(Number(params.get("line") || "0") || 0)
+  }, [params])
+
+  const line = CONDOLENCE_LINES[((lineIndex % CONDOLENCE_LINES.length) + CONDOLENCE_LINES.length) % CONDOLENCE_LINES.length]
+  const title = useMemo(() => condolenceTitle(machine), [machine])
+
+  const shareUrl = useMemo(() => {
+    if (typeof window === "undefined") return ""
+    const url = new URL(window.location.origin + "/condolences")
+    if (machine.trim()) url.searchParams.set("machine", machine.trim())
+    if (from.trim()) url.searchParams.set("from", from.trim())
+    url.searchParams.set("line", String(lineIndex % CONDOLENCE_LINES.length))
+    return url.toString()
+  }, [machine, from, lineIndex])
+
+  async function copyLink() {
+    if (!shareUrl) return
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2000)
+    } catch {
+      prompt("Copy this condolence link:", shareUrl)
+    }
+  }
 
   async function downloadPng() {
-    const node = cardRef.current
-    if (!node) return
-
     const width = 1080
     const height = 1080
     const canvas = document.createElement("canvas")
@@ -33,14 +50,12 @@ export function CondolenceCard() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Background
     const grad = ctx.createLinearGradient(0, 0, width, height)
     grad.addColorStop(0, "#eef3f0")
     grad.addColorStop(1, "#d4e6cb")
     ctx.fillStyle = grad
     ctx.fillRect(0, 0, width, height)
 
-    // Frame
     ctx.strokeStyle = "#1a365d"
     ctx.lineWidth = 8
     ctx.strokeRect(48, 48, width - 96, height - 96)
@@ -104,12 +119,22 @@ export function CondolenceCard() {
         </button>
         <button
           type="button"
-          onClick={downloadPng}
+          onClick={copyLink}
           className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110"
         >
-          Download card PNG
+          {copied ? "Link copied" : "Copy share link"}
+        </button>
+        <button
+          type="button"
+          onClick={downloadPng}
+          className="rounded-full border border-line bg-card px-5 py-2.5 text-sm font-semibold uppercase tracking-wide transition hover:border-accent"
+        >
+          Download PNG
         </button>
       </div>
+      <p className="mt-3 font-mono text-xs text-muted">
+        Shared links auto-make a fun Open Graph preview with the machine name.
+      </p>
 
       <article
         ref={cardRef}

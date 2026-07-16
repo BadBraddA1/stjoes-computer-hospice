@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { IsItTimeFlow } from "@/components/is-it-time-flow"
+import { AmenityShowcase } from "@/components/amenity-showcase"
 import { PageHero, PageTicker, SiteFooter } from "@/components/site-chrome"
 
 export const metadata: Metadata = {
@@ -24,6 +25,12 @@ export default function IsItTimePage() {
         copy="Answer a few yes/no questions. We’ll recommend admission, a vigil, or a little more denial."
       />
       <IsItTimeFlow />
+      <AmenityShowcase
+        title="More wards"
+        copy="Whatever the flowchart said — there’s a ward for that."
+        excludeHref="/is-it-time"
+        id="more-wards"
+      />
       <SiteFooter showCounter={false} />
     </main>
   )

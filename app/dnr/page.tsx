@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { DnrCertificate } from "@/components/dnr-certificate"
+import { AmenityShowcase } from "@/components/amenity-showcase"
 import { PageHero, PageTicker, SiteFooter } from "@/components/site-chrome"
 
 export const metadata: Metadata = {
@@ -27,6 +28,12 @@ export default function DnrPage() {
       </div>
       <DnrCertificate />
       <div className="no-print">
+        <AmenityShowcase
+          title="More wards"
+          copy="Certificates filed? Light a vigil or leave a memorial."
+          excludeHref="/dnr"
+          id="more-wards"
+        />
         <SiteFooter showCounter={false} />
       </div>
     </main>

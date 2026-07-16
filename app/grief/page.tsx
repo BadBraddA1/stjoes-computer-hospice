@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { GriefQuiz } from "@/components/grief-quiz"
+import { AmenityShowcase } from "@/components/amenity-showcase"
 import { PageHero, PageTicker, SiteFooter } from "@/components/site-chrome"
 
 export const metadata: Metadata = {
@@ -26,6 +27,12 @@ export default function GriefPage() {
         copy="Walk the path every owner knows. Progress is optional. The power brick drawer is not."
       />
       <GriefQuiz />
+      <AmenityShowcase
+        title="More wards"
+        copy="Acceptance achieved? Issue a DNR or start a vigil."
+        excludeHref="/grief"
+        id="more-wards"
+      />
       <SiteFooter showCounter={false} />
     </main>
   )

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { MemorialWall } from "@/components/memorial-wall"
+import { AmenityShowcase } from "@/components/amenity-showcase"
 import { PageHero, PageTicker, SiteFooter } from "@/components/site-chrome"
 
 export const metadata: Metadata = {
@@ -24,6 +25,12 @@ export default function MemorialPage() {
         copy="Etch a note for a machine that can’t update anymore. Seed memorials from the wards; yours stay on this device."
       />
       <MemorialWall />
+      <AmenityShowcase
+        title="More wards"
+        copy="Still grieving? Try the five stages or a condolence card."
+        excludeHref="/memorial"
+        id="more-wards"
+      />
       <SiteFooter showCounter={false} />
     </main>
   )

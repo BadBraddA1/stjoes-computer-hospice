@@ -1,12 +1,17 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
 export function VigilLight() {
   const params = useSearchParams()
   const initial = params.get("for") || ""
   const [name, setName] = useState(initial)
+  const [copied, setCopied] = useState(false)
+
+  useEffect(() => {
+    setName(params.get("for") || "")
+  }, [params])
 
   const shareUrl = useMemo(() => {
     if (typeof window === "undefined") return ""
@@ -19,7 +24,8 @@ export function VigilLight() {
     if (!shareUrl) return
     try {
       await navigator.clipboard.writeText(shareUrl)
-      alert("Vigil link copied. Go gently.")
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2000)
     } catch {
       prompt("Copy this vigil link:", shareUrl)
     }
@@ -37,7 +43,8 @@ export function VigilLight() {
         {name.trim() ? `Vigil for ${name.trim()}` : "A quiet light for dying machines"}
       </h2>
       <p className="mx-auto mt-4 max-w-md text-muted">
-        No updates. No diagnostics. Just a soft green pulse while you sit with what remains.
+        No updates. No diagnostics. Just a soft green pulse while you sit with what remains. Shared
+        links get a custom preview card.
       </p>
 
       <label className="mx-auto mt-8 block max-w-md text-left">
@@ -57,8 +64,11 @@ export function VigilLight() {
         onClick={copyLink}
         className="mt-6 inline-flex rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110"
       >
-        Copy share link
+        {copied ? "Link copied" : "Copy share link"}
       </button>
+      <p className="mt-3 font-mono text-xs text-muted">
+        Preview: navy ward + glowing LED + the machine name
+      </p>
     </div>
   )
 }

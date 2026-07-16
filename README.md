@@ -49,11 +49,18 @@ Hospice parody site with:
 | `/grief` | Five stages quiz (Denial → Acceptance) |
 | `/dnr` | Printable Do Not Resuscitate certificate |
 | `/memorial` | Memorial wall (seeded + notes saved in this browser) |
-| `/vigil` | Shareable power-LED vigil (`?for=MachineName`) |
-| `/condolences` | Condolence card generator → download PNG |
+| `/vigil` | Shareable power-LED vigil (`?for=MachineName`) — **dynamic Open Graph** preview |
+| `/condolences` | Condolence card (`?machine=&from=&line=`) — **dynamic Open Graph** + PNG download |
 | `/hiring` | Joe 3 hiring quiz |
 
-No email admit button. Not a real hospital.
+Amenity **cards** show on the home page (Patient amenities / Campus directory) and again as “More wards” on each amenity page — not footer-only.
+
+### Dynamic Open Graph
+
+- Vigil share: `/vigil?for=ThinkPad` → `/api/og/vigil?for=ThinkPad`
+- Condolence share: `/condolences?machine=OptiPlex&from=Brad&line=0` → `/api/og/condolences?...`
+
+Previews are generated with `next/og` (1200×630) so iMessage / Slack / Twitter get the fun card, not a generic homepage image.
 
 ### We’re Hiring (`/hiring`)
 

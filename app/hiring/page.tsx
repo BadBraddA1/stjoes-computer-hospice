@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import { HiringQuiz } from "@/components/hiring-quiz"
+import { AmenityShowcase } from "@/components/amenity-showcase"
 import { PageTicker, SiteFooter } from "@/components/site-chrome"
 
 export const metadata: Metadata = {
@@ -66,6 +67,12 @@ export default function HiringPage() {
         </p>
       </section>
 
+      <AmenityShowcase
+        title="Meanwhile, in the wards"
+        copy="While HR rejects you, the machines still need company."
+        excludeHref="/hiring"
+        id="more-wards"
+      />
       <SiteFooter showCounter={false} />
     </main>
   )

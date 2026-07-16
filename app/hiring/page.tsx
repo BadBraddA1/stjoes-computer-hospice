@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import Link from "next/link"
 import { HiringQuiz } from "@/components/hiring-quiz"
+import { PageTicker, SiteFooter } from "@/components/site-chrome"
 
 export const metadata: Metadata = {
   title: "We're Hiring | ST Joe's Computer Hospice",
@@ -16,18 +16,14 @@ export const metadata: Metadata = {
 export default function HiringPage() {
   return (
     <main className="flex-1">
-      <div className="overflow-hidden border-b border-line bg-ink text-card">
-        <div className="ticker-track flex whitespace-nowrap py-2 font-mono text-xs tracking-wide uppercase">
-          {[0, 1].map((loop) => (
-            <div key={loop} className="flex shrink-0 gap-10 px-6" aria-hidden={loop === 1}>
-              <span>NOW HIRING: emotional support for hard drives</span>
-              <span>JOE 3 NEED NOT APPLY (again)</span>
-              <span>benefits: tissue boxes · no hope · free static</span>
-              <span>sorry your resume is up</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <PageTicker
+        items={[
+          "NOW HIRING: emotional support for hard drives",
+          "JOE 3 NEED NOT APPLY (again)",
+          "benefits: tissue boxes · no hope · free static",
+          "sorry your resume is up",
+        ]}
+      />
 
       <header className="relative overflow-hidden border-b border-line">
         <div
@@ -70,17 +66,7 @@ export default function HiringPage() {
         </p>
       </section>
 
-      <footer className="border-t border-line bg-ink py-10 text-card">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 sm:flex-row sm:px-10">
-          <Link
-            href="/"
-            className="font-[family-name:var(--font-display)] text-base font-semibold transition hover:text-accent-soft"
-          >
-            ← Back to the wards
-          </Link>
-          <p className="text-sm text-white/65">stjoeshospice.com · sorry your time is up</p>
-        </div>
-      </footer>
+      <SiteFooter showCounter={false} />
     </main>
   )
 }

@@ -36,7 +36,24 @@ API note: the local Cloudflare token can read existing zones but can’t create 
 
 ## What’s here
 
-Hospice parody site: continuum of care, Head of Hospice Care portrait **plus bedside video** (`public/head-of-care.mp4`, click to play with controls), patient board, visiting hours, an embedded “happy costermer” YouTube bit, and a footer **grief sessions** view counter (once per browser tab session via CounterAPI). No email admit button. Not a real hospital.
+Hospice parody site with:
+
+- Continuum of care, Head of Hospice Care portrait + bedside video (`public/head-of-care.mp4`, click to play)
+- Patient board, visiting hours, happy costermer YouTube bit
+- Footer **grief sessions** view counter (once per tab session via CounterAPI)
+- **Patient amenities** (all except a soundboard):
+
+| Route | What it does |
+| --- | --- |
+| `/is-it-time` | Yes/no flowchart → admit / vigil / not yet |
+| `/grief` | Five stages quiz (Denial → Acceptance) |
+| `/dnr` | Printable Do Not Resuscitate certificate |
+| `/memorial` | Memorial wall (seeded + notes saved in this browser) |
+| `/vigil` | Shareable power-LED vigil (`?for=MachineName`) |
+| `/condolences` | Condolence card generator → download PNG |
+| `/hiring` | Joe 3 hiring quiz |
+
+No email admit button. Not a real hospital.
 
 ### We’re Hiring (`/hiring`)
 

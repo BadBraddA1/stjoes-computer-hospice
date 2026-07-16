@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { HappyCostermer } from "@/components/happy-costermer"
-import { VisitCounter } from "@/components/visit-counter"
+import { SiteFooter } from "@/components/site-chrome"
+import { amenities } from "@/lib/amenities"
 
 const services = [
   {
@@ -270,6 +271,31 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="border-b border-line py-16 sm:py-20" id="amenities">
+        <div className="mx-auto max-w-6xl px-6 sm:px-10">
+          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+            Patient amenities
+          </h2>
+          <p className="mt-3 max-w-2xl text-muted">
+            Extra wards for when sitting quietly with a dying tower isn&apos;t interactive enough.
+          </p>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {amenities.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="rounded-2xl border border-line bg-card p-6 transition hover:border-accent"
+              >
+                <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-ink">
+                  {item.title}
+                </h3>
+                <p className="mt-3 leading-relaxed text-muted">{item.copy}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="border-b border-line py-14" id="marks">
         <div className="mx-auto max-w-6xl px-6 sm:px-10">
           <h2 className="font-[family-name:var(--font-display)] text-2xl font-bold tracking-tight sm:text-3xl">
@@ -326,44 +352,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="border-t border-line bg-ink py-10 text-card">
-        <div className="mx-auto max-w-6xl px-6 sm:px-10">
-          <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start sm:justify-between">
-            <div className="flex flex-col items-center gap-4 sm:items-start">
-              <div className="flex items-center gap-3">
-                <Image src="/logo-icon.png" alt="" width={40} height={40} className="h-10 w-10" />
-                <p className="font-[family-name:var(--font-display)] text-base font-semibold">
-                  ST Joe&apos;s Computer Hospice
-                </p>
-              </div>
-              <VisitCounter />
-            </div>
-            <div className="flex flex-col items-center gap-2 sm:items-end">
-              <a
-                href="/hiring"
-                className="text-sm font-semibold text-accent-soft transition hover:text-white"
-              >
-                We&apos;re hiring
-              </a>
-              <p className="text-sm text-white/65">stjoeshospice.com · sorry your time is up</p>
-            </div>
-          </div>
-          <div className="mt-8 border-t border-white/15 pt-6 text-center text-sm text-white/55">
-            <p>
-              Powered By{" "}
-              <a
-                href="https://braddcorp.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent-soft transition-colors hover:text-white"
-              >
-                BraddCorp
-              </a>{" "}
-              © {new Date().getFullYear()}. All Rights Reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   )
 }

@@ -90,6 +90,20 @@ body {
   }
 }
 
+@keyframes led-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.96);
+    box-shadow: 0 0 18px rgba(95, 148, 72, 0.35), 0 0 48px rgba(95, 148, 72, 0.18);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 28px rgba(95, 148, 72, 0.7), 0 0 80px rgba(95, 148, 72, 0.35);
+  }
+}
+
 .anim-rise {
   animation: rise 0.8s ease-out both;
 }
@@ -111,6 +125,34 @@ body {
   width: max-content;
 }
 
+.led-vigil {
+  animation: led-breathe 3.2s ease-in-out infinite;
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  body {
+    background: white !important;
+    background-image: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .dnr-sheet {
+    box-shadow: none !important;
+    border-color: #1a365d !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -124,7 +166,13 @@ body {
   .anim-rise-delay-1,
   .anim-rise-delay-2,
   .anim-pulse,
-  .ticker-track {
+  .ticker-track,
+  .led-vigil {
     animation: none !important;
+  }
+
+  .led-vigil {
+    opacity: 1;
+    box-shadow: 0 0 28px rgba(95, 148, 72, 0.55);
   }
 }

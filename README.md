@@ -48,7 +48,7 @@ When a ward would help, ST Joe's AI can **walk you into a gag room** (grief stag
 
 ### Patient amenities directory (wayfinding)
 
-Home campus is a **hospital floor directory** (wings, room numbers, “You are here”). Tap a room plaque to **open that room’s page**. Every room page has a sticky **Main lobby** bar (`/#amenities`) to return to the directory.
+Home campus is a **hospital floor directory** (wings, room numbers, “You are here”). Tap a room plaque to **open that room’s page**, or hit **Random room**. Every room page has a sticky **Main lobby** bar (`/#amenities`) to return to the directory.
 
 ### Interactive wards (routes)
 

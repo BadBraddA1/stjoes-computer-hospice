@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useMemo } from "react"
 import { amenities, WINGS, type Amenity } from "@/lib/amenities"
 import { openChaplainChat } from "@/components/chaplain-chat"
@@ -20,6 +21,7 @@ export function InteractiveWards({
   defaultOpen?: WardKey | null
   excludeHref?: string
 }) {
+  const router = useRouter()
   const items = amenities.filter((item) => item.href !== excludeHref)
 
   const byWing = useMemo(() => {
@@ -28,6 +30,16 @@ export function InteractiveWards({
       rooms: items.filter((item) => item.wing === wing.id),
     })).filter((group) => group.rooms.length > 0)
   }, [items])
+
+  function openRandomRoom() {
+    if (!items.length) return
+    const pick = items[Math.floor(Math.random() * items.length)]
+    if (pick.href === "/chaplain" && Math.random() < 0.5) {
+      openChaplainChat()
+      return
+    }
+    router.push(pick.href)
+  }
 
   return (
     <section className="border-y border-line bg-band py-14 sm:py-20" id={id}>
@@ -48,10 +60,26 @@ export function InteractiveWards({
                 You are here · Main lobby
               </span>
               <span className="text-white/55">{items.length} rooms</span>
+              <button
+                type="button"
+                onClick={openRandomRoom}
+                className="inline-flex min-h-10 items-center rounded-sm bg-accent px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft"
+              >
+                Random room
+              </button>
             </div>
           </div>
 
-          <p className="border-b border-line px-5 py-3 text-sm text-muted sm:px-7">{copy}</p>
+          <p className="border-b border-line px-5 py-3 text-sm text-muted sm:px-7">
+            {copy}{" "}
+            <button
+              type="button"
+              onClick={openRandomRoom}
+              className="font-semibold text-accent underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              Feeling lost? Open a random room.
+            </button>
+          </p>
 
           <div className="divide-y divide-line">
             {byWing.map(({ wing, rooms }) => (

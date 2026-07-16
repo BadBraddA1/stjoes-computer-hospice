@@ -2,6 +2,10 @@ import Image from "next/image"
 import { HappyCostermer } from "@/components/happy-costermer"
 import { InteractiveWards } from "@/components/interactive-wards"
 import { SiteFooter } from "@/components/site-chrome"
+import { LastWordsTicker, LastWordsForm } from "@/components/last-words"
+import { AdmitDevice } from "@/components/admit-device"
+import { CodeAlerts } from "@/components/code-alerts"
+import { EasterEgg } from "@/components/easter-egg"
 
 const services = [
   {
@@ -50,19 +54,9 @@ const visiting = [
 export default function HomePage() {
   return (
     <main className="flex-1">
-      <div className="overflow-hidden border-b border-line bg-ink text-card">
-        <div className="ticker-track flex whitespace-nowrap py-2 font-mono text-xs tracking-wide uppercase">
-          {[0, 1].map((loop) => (
-            <div key={loop} className="flex shrink-0 gap-10 px-6" aria-hidden={loop === 1}>
-              <span>ADMITTING: devices beyond repair</span>
-              <span>CODE GREEN: fans still spinning</span>
-              <span>sorry your time is up</span>
-              <span>WIFI LAST WORDS welcome</span>
-              <span>BRING YOUR OWN HDMI adapter</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <LastWordsTicker />
+      <CodeAlerts />
+      <EasterEgg />
 
       <header className="relative overflow-hidden">
         <div
@@ -305,6 +299,20 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="border-t border-line bg-band py-16 sm:py-20" id="last-words">
+        <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
+          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
+            Lobby last words
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-muted">
+            Feed the ticker. Keep it short. Keep it solemn. Keep it stupid.
+          </p>
+          <div className="mt-8">
+            <LastWordsForm />
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 sm:py-24" id="admit">
         <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
           <Image
@@ -319,12 +327,15 @@ export default function HomePage() {
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg text-muted">
             Bring the device, the charger you lost twice, and any emotional support USB sticks.
-            We&apos;ll take it from here. Meanwhile, meet our happiest costermer:
+            Admit below for a fake case number — then meet our happiest costermer:
           </p>
+          <div className="mt-10">
+            <AdmitDevice />
+          </div>
           <HappyCostermer />
           <p className="mt-4 font-mono text-xs text-muted">
             Not a real hospital. Definitely a real bit. Donations unpaid. Tears optional. Unmute if
-            your browser was polite.
+            your browser was polite. Type <span className="text-ink">joe3</span> if you dare.
           </p>
         </div>
       </section>

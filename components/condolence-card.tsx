@@ -3,13 +3,13 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { CONDOLENCE_LINES, condolenceTitle } from "@/lib/condolences"
+import { ShareButtons } from "@/components/share-buttons"
 
 export function CondolenceCard() {
   const params = useSearchParams()
   const [machine, setMachine] = useState(params.get("machine") || "OptiPlex")
   const [from, setFrom] = useState(params.get("from") || "")
   const [lineIndex, setLineIndex] = useState(Number(params.get("line") || "0") || 0)
-  const [copied, setCopied] = useState(false)
   const cardRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -29,17 +29,6 @@ export function CondolenceCard() {
     url.searchParams.set("line", String(lineIndex % CONDOLENCE_LINES.length))
     return url.toString()
   }, [machine, from, lineIndex])
-
-  async function copyLink() {
-    if (!shareUrl) return
-    try {
-      await navigator.clipboard.writeText(shareUrl)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 2000)
-    } catch {
-      prompt("Copy this condolence link:", shareUrl)
-    }
-  }
 
   async function downloadPng() {
     const width = 1080
@@ -119,19 +108,17 @@ export function CondolenceCard() {
         </button>
         <button
           type="button"
-          onClick={copyLink}
-          className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110"
-        >
-          {copied ? "Link copied" : "Copy share link"}
-        </button>
-        <button
-          type="button"
           onClick={downloadPng}
           className="rounded-full border border-line bg-card px-5 py-2.5 text-sm font-semibold uppercase tracking-wide transition hover:border-accent"
         >
           Download PNG
         </button>
       </div>
+      {shareUrl ? (
+        <div className="mt-4">
+          <ShareButtons url={shareUrl} title={title} />
+        </div>
+      ) : null}
       <p className="mt-3 font-mono text-xs text-muted">
         Shared links auto-make a fun Open Graph preview with the machine name.
       </p>

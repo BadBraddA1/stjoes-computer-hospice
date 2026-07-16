@@ -40,20 +40,28 @@ Hospice parody site with:
 
 - Continuum of care, Head of Hospice Care portrait + bedside video (`public/head-of-care.mp4`, click to play)
 - Patient board, visiting hours, happy costermer YouTube bit
+- **Lobby last words** ticker (seeded + visitor lines in localStorage)
+- **Admit a device** → fake case id like `GRIEF-404` (no email)
+- Random **Code Beige** (etc.) toast alerts
+- Easter egg: type `joe3` or Konami → Joe 3 hiring roast
 - Footer **grief sessions** view counter (once per tab session via CounterAPI)
-- **Patient amenities** (all except a soundboard):
+
+### Interactive wards (home campus + routes)
 
 | Route | What it does |
 | --- | --- |
-| `/is-it-time` | Yes/no flowchart → admit / vigil / not yet |
-| `/grief` | Five stages quiz (Denial → Acceptance) |
-| `/dnr` | DNR certificate — **download 1920×1080 screensaver/wallpaper PNG** (logo + QR to site) or print/PDF |
-| `/memorial` | Memorial wall (seeded + notes saved in this browser) |
-| `/vigil` | Shareable power-LED vigil (`?for=MachineName`) — **dynamic Open Graph** preview |
-| `/condolences` | Condolence card (`?machine=&from=&line=`) — **dynamic Open Graph** + PNG download |
+| `/is-it-time` | Yes/no flowchart |
+| `/grief` | Five stages quiz |
+| `/call-doctor` | **Call Doctor** — plays synthetic **hold music only** (no doctor) |
+| `/dnr` | DNR certificate — 1920×1080 screensaver PNG (logo + QR) or print |
+| `/discharge` | Discharge papers |
+| `/doctors-note` | Fake doctor’s excuse note |
+| `/memorial` | Memorial wall |
+| `/vigil` | Power-LED vigil + share / OG |
+| `/condolences` | Condolence card + share / OG + PNG |
 | `/hiring` | Joe 3 hiring quiz |
 
-**Interactive campus on the home page:** ward cards open the real bits inline (flowchart, grief quiz, DNR, memorial, vigil, condolences, hiring). Full routes remain for sharing / deep links (`#ward-vigil`, etc.). “More wards” on amenity pages uses the same interactive cards.
+Home page ward cards open these bits **inline**. Full pages remain for sharing (`#ward-call-doctor`, etc.).
 
 ### Dynamic Open Graph
 

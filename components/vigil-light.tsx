@@ -2,13 +2,12 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "next/navigation"
+import { ShareButtons } from "@/components/share-buttons"
 
 export function VigilLight() {
   const params = useSearchParams()
   const initial = params.get("for") || ""
   const [name, setName] = useState(initial)
-  const [copied, setCopied] = useState(false)
-
   useEffect(() => {
     setName(params.get("for") || "")
   }, [params])
@@ -20,16 +19,9 @@ export function VigilLight() {
     return url.toString()
   }, [name])
 
-  async function copyLink() {
-    if (!shareUrl) return
-    try {
-      await navigator.clipboard.writeText(shareUrl)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 2000)
-    } catch {
-      prompt("Copy this vigil link:", shareUrl)
-    }
-  }
+  const shareTitle = name.trim()
+    ? `Vigil for ${name.trim()} — ST Joe's Computer Hospice`
+    : "Power-LED Vigil — ST Joe's Computer Hospice"
 
   return (
     <div className="mx-auto max-w-xl px-6 py-12 text-center sm:px-10">
@@ -59,13 +51,11 @@ export function VigilLight() {
         />
       </label>
 
-      <button
-        type="button"
-        onClick={copyLink}
-        className="mt-6 inline-flex rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110"
-      >
-        {copied ? "Link copied" : "Copy share link"}
-      </button>
+      {shareUrl ? (
+        <div className="mt-6">
+          <ShareButtons url={shareUrl} title={shareTitle} />
+        </div>
+      ) : null}
       <p className="mt-3 font-mono text-xs text-muted">
         Preview: navy ward + glowing LED + the machine name
       </p>

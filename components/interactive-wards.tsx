@@ -5,7 +5,10 @@ import { Suspense, useEffect, useId, useState } from "react"
 import { amenities, type Amenity } from "@/lib/amenities"
 import { IsItTimeFlow } from "@/components/is-it-time-flow"
 import { GriefQuiz } from "@/components/grief-quiz"
+import { CallDoctor } from "@/components/call-doctor"
 import { DnrCertificate } from "@/components/dnr-certificate"
+import { DischargePapers } from "@/components/discharge-papers"
+import { DoctorsNote } from "@/components/doctors-note"
 import { MemorialWall } from "@/components/memorial-wall"
 import { VigilLight } from "@/components/vigil-light"
 import { CondolenceCard } from "@/components/condolence-card"
@@ -19,8 +22,14 @@ function WardPanel({ href }: { href: WardKey }) {
       return <IsItTimeFlow />
     case "/grief":
       return <GriefQuiz />
+    case "/call-doctor":
+      return <CallDoctor />
     case "/dnr":
       return <DnrCertificate />
+    case "/discharge":
+      return <DischargePapers />
+    case "/doctors-note":
+      return <DoctorsNote />
     case "/memorial":
       return <MemorialWall />
     case "/vigil":

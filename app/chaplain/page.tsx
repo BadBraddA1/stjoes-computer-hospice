@@ -13,7 +13,7 @@ export default function ChaplainPage() {
       ticker={["Fr. Joe on call", "grace with a ground pin", "confess your USB sins"]}
       kicker="Pastoral care · Rm 205"
       title="Chaplain office"
-      copy="Full desk hours here — or use Ask Fr. Joe in the corner like every real help site (except sacred)."
+      copy="Fr. Joe answers in character about dying machines. Corner widget for quick confessions; full desk here."
       excludeHref="/chaplain"
     >
       <ChaplainChat />

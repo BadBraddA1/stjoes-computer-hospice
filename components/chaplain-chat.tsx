@@ -4,24 +4,29 @@ import { FormEvent, useEffect, useId, useRef, useState } from "react"
 
 type Msg = { role: "you" | "chaplain"; text: string }
 
-const REPLIES = [
-  "It is not failure to unplug. It is grace with a ground pin.",
-  "Have you said goodbye to the Save dialog?",
-  "The beach ball is not punishing you. It is processing grief.",
-  "I anoint this machine with compressed air.",
-  "Dust to dust. Beige to deeper beige.",
-  "Your charger left first. That is also a form of love.",
-  "Windows Update finishes in heaven. Not before.",
-  "Light a vigil. Or don't. The LED understands either way.",
-]
-
-const CLOSING = "Sorry your time is up."
-
 const OPEN_EVENT = "stjoe:open-chaplain"
 
 export function openChaplainChat() {
   if (typeof window === "undefined") return
   window.dispatchEvent(new CustomEvent(OPEN_EVENT))
+}
+
+async function askFrJoe(messages: Msg[]): Promise<string> {
+  const res = await fetch("/api/chaplain", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      messages: messages.map((m) => ({
+        role: m.role,
+        text: m.text,
+      })),
+    }),
+  })
+  const data = (await res.json().catch(() => null)) as { text?: string; error?: string } | null
+  if (!res.ok) {
+    throw new Error(data?.error || "Fr. Joe stepped away briefly.")
+  }
+  return data?.text?.trim() || "The chapel is quiet. Try again in a moment."
 }
 
 export function ChaplainConversation({
@@ -40,30 +45,42 @@ export function ChaplainConversation({
     },
   ])
   const [input, setInput] = useState("")
+  const [busy, setBusy] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLDivElement>(null)
 
-  function onSubmit(e: FormEvent) {
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
+  }, [messages, busy])
+
+  async function onSubmit(e: FormEvent) {
     e.preventDefault()
     const text = input.trim()
-    if (!text) return
-    const reply = REPLIES[Math.floor(Math.random() * REPLIES.length)]
-    setMessages((m) => [
-      ...m,
-      { role: "you", text },
-      { role: "chaplain", text: reply },
-      { role: "chaplain", text: CLOSING },
-    ])
+    if (!text || busy) return
+
+    const next: Msg[] = [...messages, { role: "you", text }]
+    setMessages(next)
     setInput("")
-    window.setTimeout(() => {
-      endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
-    }, 50)
+    setBusy(true)
+
+    try {
+      const reply = await askFrJoe(next)
+      setMessages((m) => [...m, { role: "chaplain", text: reply }])
+    } catch {
+      setMessages((m) => [
+        ...m,
+        {
+          role: "chaplain",
+          text: "The intercom crackled. Try again — the toner spirits are restless.",
+        },
+      ])
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (
     <div className={compact ? "flex h-full min-h-0 flex-col" : ""}>
       <div
-        ref={listRef}
         className={
           compact
             ? "min-h-0 flex-1 space-y-2.5 overflow-y-auto px-3 py-3"
@@ -72,7 +89,7 @@ export function ChaplainConversation({
       >
         {messages.map((m, i) => (
           <div
-            key={`${i}-${m.text.slice(0, 12)}`}
+            key={`${i}-${m.role}-${m.text.slice(0, 24)}`}
             className={`rounded-2xl px-3 py-2.5 text-sm leading-relaxed ${
               m.role === "you"
                 ? "ml-6 bg-ink text-card"
@@ -85,11 +102,17 @@ export function ChaplainConversation({
             <p className="mt-1">{m.text}</p>
           </div>
         ))}
+        {busy ? (
+          <div className="mr-6 rounded-2xl border border-line bg-bg px-3 py-2.5 text-sm text-muted">
+            <p className="font-mono text-[10px] uppercase tracking-wider text-accent">Fr. Joe</p>
+            <p className="mt-1 animate-pulse">Consulting the toner spirits…</p>
+          </div>
+        ) : null}
         <div ref={endRef} />
       </div>
 
       <form
-        onSubmit={onSubmit}
+        onSubmit={(e) => void onSubmit(e)}
         className={
           compact
             ? "flex shrink-0 gap-2 border-t border-line bg-card p-3"
@@ -103,14 +126,17 @@ export function ChaplainConversation({
           id={fieldId}
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          disabled={busy}
+          maxLength={500}
           placeholder="My tower is warm and sad…"
-          className="min-h-11 flex-1 rounded-full border border-line bg-bg px-4 py-2.5 text-sm outline-none focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="min-h-11 flex-1 rounded-full border border-line bg-bg px-4 py-2.5 text-sm outline-none focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
         />
         <button
           type="submit"
-          className="min-h-11 shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          disabled={busy || !input.trim()}
+          className="min-h-11 shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50"
         >
-          Confess
+          {busy ? "…" : "Confess"}
         </button>
       </form>
     </div>
@@ -128,7 +154,8 @@ export function ChaplainChat() {
         Chaplain office
       </h2>
       <p className="mx-auto mt-3 max-w-md text-center text-muted">
-        Full desk hours. For a quicker visit, use{" "}
+        Fr. Joe listens in character — battery grief, beach balls, printers, the works. Quicker
+        visits:{" "}
         <button
           type="button"
           onClick={() => openChaplainChat()}
@@ -136,7 +163,7 @@ export function ChaplainChat() {
         >
           Ask Fr. Joe
         </button>{" "}
-        in the corner — like every real help site, except sacred.
+        in the corner.
       </p>
       <ChaplainConversation />
     </div>
@@ -195,10 +222,13 @@ export function ChaplainWidget() {
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-soft">
                 Pastoral help · online
               </p>
-              <h2 id="chaplain-widget-title" className="mt-0.5 font-[family-name:var(--font-display)] text-lg font-bold">
+              <h2
+                id="chaplain-widget-title"
+                className="mt-0.5 font-[family-name:var(--font-display)] text-lg font-bold"
+              >
                 Ask Fr. Joe
               </h2>
-              <p className="mt-0.5 text-xs text-white/65">Typical reply time: spiritually immediate</p>
+              <p className="mt-0.5 text-xs text-white/65">Listens · rarely repairs · often anoints</p>
             </div>
             <button
               ref={closeRef}

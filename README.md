@@ -26,7 +26,20 @@ Hospice parody site with:
 - **Admit a device** → fake case id like `GRIEF-404` (no email)
 - Random **Code Beige** toasts + occasional full-screen “Remain calm” flash
 - **Lobby PA** announcements + **battery %** (bottom-left) that slowly drains / dims when idle
-- **Ask Fr. Joe** — sitewide chaplain chat widget (bottom-right), like a real help desk
+- **Ask Fr. Joe** — sitewide chaplain chat widget (bottom-right). Talks via **OpenAI** when `OPENAI_API_KEY` is set; otherwise uses smarter offline pastoral replies (still varies by what you say — no more “sorry your time is up” on every line)
+
+### Fr. Joe AI (optional)
+
+```bash
+# local
+cp .env.example .env.local
+# paste OPENAI_API_KEY=sk-...
+
+# production (Vercel)
+vercel env add OPENAI_API_KEY
+```
+
+Uses `gpt-4o-mini` through `/api/chaplain`. Stay-in-character system prompt lives in `lib/fr-joe.ts`.
 - Easter eggs: type `joe3`, Konami, or **Ctrl+Alt+Delete** → gentle BSOD
 - Biz-card QR welcome: `/?from=bizcard` (also `card`, `qr`)
 - Footer **grief sessions** view counter (CounterAPI, once per tab session)

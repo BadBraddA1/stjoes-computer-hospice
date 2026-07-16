@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Fraunces, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google"
+import { SiteWidgets } from "@/components/site-widgets"
 import "./globals.css"
 
 const display = Fraunces({
@@ -54,7 +55,10 @@ export default function RootLayout({
       lang="en"
       className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col overflow-x-clip">{children}</body>
+      <body className="flex min-h-full flex-col overflow-x-clip">
+        {children}
+        <SiteWidgets />
+      </body>
     </html>
   )
 }

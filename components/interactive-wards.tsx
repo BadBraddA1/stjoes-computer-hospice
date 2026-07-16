@@ -1,8 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { Suspense, useEffect, useId, useState } from "react"
-import { amenities, type Amenity } from "@/lib/amenities"
+import { Suspense, useEffect, useId, useMemo, useState } from "react"
+import { amenities, WINGS, type Amenity } from "@/lib/amenities"
+import { openChaplainChat } from "@/components/chaplain-chat"
 import { IsItTimeFlow } from "@/components/is-it-time-flow"
 import { GriefQuiz } from "@/components/grief-quiz"
 import { CallDoctor } from "@/components/call-doctor"
@@ -88,8 +89,8 @@ function WardPanel({ href }: { href: WardKey }) {
 }
 
 export function InteractiveWards({
-  title = "Play the whole campus",
-  copy = "Tap a ward card — the bit opens right here. No hallway walking required. Full pages still exist for sharing.",
+  title = "Patient amenities directory",
+  copy = "Floor directory for ST Joe's. Select a room plaque to enter. Full pages remain for sharing and printouts.",
   id = "amenities",
   defaultOpen = null,
   excludeHref,
@@ -107,6 +108,13 @@ export function InteractiveWards({
   const panelId = useId()
   const active = items.find((item) => item.href === open) || null
 
+  const byWing = useMemo(() => {
+    return WINGS.map((wing) => ({
+      wing,
+      rooms: items.filter((item) => item.wing === wing.id),
+    })).filter((group) => group.rooms.length > 0)
+  }, [items])
+
   useEffect(() => {
     const hash = window.location.hash.replace("#", "")
     if (!hash.startsWith("ward-")) return
@@ -117,6 +125,11 @@ export function InteractiveWards({
   }, [])
 
   function select(href: WardKey) {
+    // Chaplain is the sitewide help widget — directory just pages Fr. Joe
+    if (href === "/chaplain") {
+      openChaplainChat()
+      return
+    }
     setOpen((current) => {
       const next = current === href ? null : href
       if (next) {
@@ -129,68 +142,108 @@ export function InteractiveWards({
   }
 
   return (
-    <section className="border-y border-line bg-card py-16 sm:py-20" id={id}>
-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="font-mono text-xs font-medium uppercase tracking-[0.28em] text-accent">
-              Interactive campus
-            </p>
-            <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-balance sm:text-4xl">
-              {title}
-            </h2>
-            <p className="mt-3 max-w-2xl text-muted">{copy}</p>
+    <section className="border-y border-line bg-band py-14 sm:py-20" id={id}>
+      <div className="mx-auto max-w-5xl px-6 sm:px-10">
+        {/* Directory header — institutional, not arcade */}
+        <div className="rounded-sm border border-ink bg-card shadow-[0_12px_40px_rgba(26,54,93,0.08)]">
+          <div className="flex flex-col gap-4 border-b border-ink bg-ink px-5 py-4 text-card sm:flex-row sm:items-center sm:justify-between sm:px-7">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent-soft">
+                ST Joe&apos;s Computer Hospice · Wayfinding
+              </p>
+              <h2 className="mt-1 font-[family-name:var(--font-display)] text-2xl font-bold tracking-tight sm:text-3xl">
+                {title}
+              </h2>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-wider">
+              <span className="inline-flex items-center gap-2 rounded-sm border border-accent/50 bg-accent/20 px-3 py-1.5 text-accent-soft">
+                <span className="h-2 w-2 rounded-full bg-accent" aria-hidden />
+                You are here · Main lobby
+              </span>
+              <span className="text-white/55">{items.length} rooms</span>
+            </div>
           </div>
-          <span className="font-mono text-xs uppercase tracking-widest text-accent">
-            {items.length} playable wards
-          </span>
-        </div>
 
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {items.map((item) => {
-            const selected = open === item.href
-            return (
-              <button
-                key={item.href}
-                type="button"
-                onClick={() => select(item.href)}
-                aria-expanded={selected}
-                aria-controls={panelId}
-                className={`group flex h-full min-h-[11rem] flex-col rounded-2xl border p-5 text-left shadow-[0_10px_30px_rgba(26,54,93,0.05)] transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
-                  selected
-                    ? "border-accent bg-accent-soft/60 ring-2 ring-accent/30"
-                    : "border-line bg-bg hover:-translate-y-0.5 hover:border-accent"
-                }`}
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
-                    {item.ward}
-                  </span>
-                  <span className="rounded-full bg-card px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-ink">
-                    {item.badge}
-                  </span>
+          <p className="border-b border-line px-5 py-3 text-sm text-muted sm:px-7">{copy}</p>
+
+          <div className="divide-y divide-line">
+            {byWing.map(({ wing, rooms }) => (
+              <div key={wing.id} className="px-5 py-5 sm:px-7">
+                <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-ink">
+                      {wing.name}
+                    </h3>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
+                      {wing.floor}
+                    </span>
+                  </div>
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-muted">{wing.note}</p>
                 </div>
-                <h3 className="mt-3 font-[family-name:var(--font-display)] text-lg font-bold text-ink">
-                  {item.title}
-                </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{item.copy}</p>
-                <span className="mt-4 inline-flex text-sm font-semibold text-accent">
-                  {selected ? "Close ward ×" : "Play here ↓"}
-                </span>
-              </button>
-            )
-          })}
+
+                <ul className="border border-line bg-bg">
+                  {rooms.map((item) => {
+                    const selected = open === item.href
+                    return (
+                      <li key={item.href} className="border-b border-line last:border-b-0">
+                        <button
+                          type="button"
+                          onClick={() => select(item.href)}
+                          aria-expanded={selected}
+                          aria-controls={panelId}
+                          className={`flex w-full items-stretch gap-0 text-left transition focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent ${
+                            selected ? "bg-accent-soft/70" : "hover:bg-card"
+                          }`}
+                        >
+                          <span
+                            className={`flex w-[4.5rem] shrink-0 flex-col items-center justify-center border-r border-line px-2 py-3 font-mono text-xs font-semibold uppercase tracking-wide sm:w-24 ${
+                              selected ? "bg-ink text-accent-soft" : "bg-card text-ink"
+                            }`}
+                          >
+                            {item.ward}
+                          </span>
+                          <span className="flex min-w-0 flex-1 flex-col justify-center px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                            <span className="min-w-0">
+                              <span className="flex flex-wrap items-center gap-2">
+                                <span className="font-semibold text-ink">{item.title}</span>
+                                <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
+                                  {item.badge}
+                                </span>
+                              </span>
+                              <span className="mt-0.5 block text-sm text-muted">{item.copy}</span>
+                            </span>
+                            <span className="mt-2 shrink-0 font-mono text-[11px] uppercase tracking-[0.16em] text-accent sm:mt-0">
+                              {item.href === "/chaplain"
+                                ? "Page Fr. Joe →"
+                                : selected
+                                  ? "← Close door"
+                                  : "Enter room →"}
+                            </span>
+                          </span>
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col gap-2 border-t border-line bg-bg px-5 py-3 font-mono text-[11px] uppercase tracking-wider text-muted sm:flex-row sm:items-center sm:justify-between sm:px-7">
+            <span>Quiet hours · no forced firmware</span>
+            <span>Emergencies: Ask Fr. Joe (corner) · Code Beige</span>
+          </div>
         </div>
 
         {active ? (
           <div
             id={panelId}
-            className="anim-rise mt-8 overflow-hidden rounded-[28px] border border-accent/40 bg-bg shadow-[0_20px_50px_rgba(26,54,93,0.12)]"
+            className="anim-rise mt-6 overflow-hidden rounded-sm border border-ink bg-card shadow-[0_20px_50px_rgba(26,54,93,0.12)]"
           >
-            <div className="flex flex-col gap-3 border-b border-line bg-ink px-5 py-4 text-card sm:flex-row sm:items-center sm:justify-between sm:px-8">
+            <div className="flex flex-col gap-3 border-b border-ink bg-ink px-5 py-4 text-card sm:flex-row sm:items-center sm:justify-between sm:px-7">
               <div>
-                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent-soft">
-                  {active.ward} · now playing
+                <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent-soft">
+                  {active.ward} · {WINGS.find((w) => w.id === active.wing)?.name}
                 </p>
                 <p className="mt-1 font-[family-name:var(--font-display)] text-xl font-bold">
                   {active.title}
@@ -199,9 +252,9 @@ export function InteractiveWards({
               <div className="flex flex-wrap gap-2">
                 <Link
                   href={active.href}
-                  className="inline-flex min-h-11 items-center rounded-full border border-white/25 px-4 py-2 text-xs font-semibold uppercase tracking-wide transition hover:border-accent-soft hover:text-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft"
+                  className="inline-flex min-h-11 items-center rounded-sm border border-white/25 px-4 py-2 text-xs font-semibold uppercase tracking-wide transition hover:border-accent-soft hover:text-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft"
                 >
-                  Open full page
+                  Full room page
                 </Link>
                 <button
                   type="button"
@@ -209,9 +262,9 @@ export function InteractiveWards({
                     setOpen(null)
                     window.history.replaceState(null, "", window.location.pathname)
                   }}
-                  className="inline-flex min-h-11 items-center rounded-full bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  className="inline-flex min-h-11 items-center rounded-sm bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
-                  Close
+                  Return to directory
                 </button>
               </div>
             </div>
@@ -220,8 +273,8 @@ export function InteractiveWards({
             </div>
           </div>
         ) : (
-          <p className="mt-8 text-center font-mono text-xs text-muted">
-            Pick a card above. Maximum funny per square inch.
+          <p className="mt-5 text-center font-mono text-xs uppercase tracking-wider text-muted">
+            Select a room number to proceed · elevators not guaranteed
           </p>
         )}
       </div>

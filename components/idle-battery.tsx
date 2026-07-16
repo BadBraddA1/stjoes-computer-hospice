@@ -36,7 +36,7 @@ export function IdleBattery() {
 
   return (
     <div
-      className={`pointer-events-none fixed bottom-4 right-4 z-40 font-mono text-[11px] uppercase tracking-wider transition ${
+      className={`pointer-events-none fixed bottom-4 left-4 z-40 font-mono text-[11px] uppercase tracking-wider transition ${
         dim ? "opacity-40" : "opacity-90"
       }`}
       aria-hidden

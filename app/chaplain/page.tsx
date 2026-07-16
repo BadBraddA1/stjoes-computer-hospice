@@ -11,9 +11,9 @@ export default function ChaplainPage() {
   return (
     <AmenityPageShell
       ticker={["Fr. Joe on call", "grace with a ground pin", "confess your USB sins"]}
-      kicker="Pastoral care"
-      title="Chaplain chat"
-      copy="Ask anything. Receive hospice IT clichés. Exit via apology."
+      kicker="Pastoral care · Rm 205"
+      title="Chaplain office"
+      copy="Full desk hours here — or use Ask Fr. Joe in the corner like every real help site (except sacred)."
       excludeHref="/chaplain"
     >
       <ChaplainChat />

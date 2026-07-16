@@ -25,12 +25,17 @@ Hospice parody site with:
 - **Lobby last words** ticker (seeded + visitor lines in localStorage)
 - **Admit a device** → fake case id like `GRIEF-404` (no email)
 - Random **Code Beige** toasts + occasional full-screen “Remain calm” flash
-- **Lobby PA** announcements + corner **battery %** that slowly drains / dims when idle
+- **Lobby PA** announcements + **battery %** (bottom-left) that slowly drains / dims when idle
+- **Ask Fr. Joe** — sitewide chaplain chat widget (bottom-right), like a real help desk
 - Easter eggs: type `joe3`, Konami, or **Ctrl+Alt+Delete** → gentle BSOD
 - Biz-card QR welcome: `/?from=bizcard` (also `card`, `qr`)
 - Footer **grief sessions** view counter (CounterAPI, once per tab session)
 
-### Interactive wards (home campus + routes)
+### Patient amenities directory (wayfinding)
+
+Home campus is a **hospital floor directory** (wings, room numbers, “You are here”), not a feature-card grid. Tap a room plaque to enter; full pages remain for sharing.
+
+### Interactive wards (routes)
 
 | Route | What it does |
 | --- | --- |

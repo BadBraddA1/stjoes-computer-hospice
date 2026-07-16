@@ -7,7 +7,6 @@ import { LastWordsTicker, LastWordsForm } from "@/components/last-words"
 import { AdmitDevice } from "@/components/admit-device"
 import { CodeAlerts } from "@/components/code-alerts"
 import { EasterEgg } from "@/components/easter-egg"
-import { IdleBattery } from "@/components/idle-battery"
 import { LobbyPA } from "@/components/lobby-pa"
 import { BizcardWelcome } from "@/components/bizcard-welcome"
 
@@ -61,7 +60,6 @@ export default function HomePage() {
       <LastWordsTicker />
       <CodeAlerts />
       <EasterEgg />
-      <IdleBattery />
       <LobbyPA />
       <Suspense fallback={null}>
         <BizcardWelcome />
@@ -107,7 +105,7 @@ export default function HomePage() {
                 href="#amenities"
                 className="inline-flex items-center rounded-full border border-line bg-card/80 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-ink backdrop-blur transition hover:border-accent"
               >
-                Play the Campus
+                Directory
               </a>
             </div>
             <p className="anim-pulse mt-8 font-mono text-xs text-warn">

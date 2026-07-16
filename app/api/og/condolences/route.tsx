@@ -1,80 +1,128 @@
 import { ImageResponse } from "next/og"
-import { CONDOLENCE_LINES, condolenceTitle } from "@/lib/condolences"
 
 export const runtime = "edge"
 export const contentType = "image/png"
-export const size = { width: 1200, height: 630 }
+export const size = {
+  width: 1200,
+  height: 630,
+}
+
+const LINES = [
+  "The fans are quiet now. The icons can rest.",
+  "May its ports find peace and its dust find dignity.",
+  "Gone from the dock, never from the drawer of chargers.",
+  "It gave you spreadsheets, memes, and one final blue screen.",
+]
+
+function clean(text: string) {
+  return String(text || "")
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[\u201C\u201D]/g, '"')
+    .replace(/[\u2013\u2014]/g, "-")
+    .replace(/[^\x09\x0A\x0D\x20-\x7E]/g, "")
+    .trim()
+}
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const machine = (searchParams.get("machine") || "OptiPlex").trim().slice(0, 40)
-  const from = (searchParams.get("from") || "A friend in the wards").trim().slice(0, 40)
-  const lineIndex = Number(searchParams.get("line") || "0")
-  const line =
-    CONDOLENCE_LINES[((Number.isFinite(lineIndex) ? lineIndex : 0) % CONDOLENCE_LINES.length + CONDOLENCE_LINES.length) % CONDOLENCE_LINES.length]
-  const title = condolenceTitle(machine)
+  try {
+    const { searchParams } = new URL(request.url)
+    const machine = clean(searchParams.get("machine") || "OptiPlex").slice(0, 36) || "OptiPlex"
+    const from =
+      clean(searchParams.get("from") || "A friend in the wards").slice(0, 36) ||
+      "A friend in the wards"
+    const rawLine = Number(searchParams.get("line") || "0")
+    const lineIndex = Number.isFinite(rawLine) ? Math.abs(Math.trunc(rawLine)) % LINES.length : 0
+    const line = LINES[lineIndex]
+    const title = `We're sorry for your ${machine}.`
 
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "52px 60px",
-          background: "linear-gradient(160deg, #eef3f0 0%, #d4e6cb 55%, #c5dcb8 100%)",
-          color: "#1a365d",
-          fontFamily: "Georgia, serif",
-          border: "16px solid #1a365d",
-        }}
-      >
+    return new ImageResponse(
+      (
         <div
           style={{
-            fontSize: 22,
-            letterSpacing: 6,
-            textTransform: "uppercase",
-            color: "#5f9448",
-            fontFamily: "monospace",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            background: "#eef3f0",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          ST Joe's Computer Hospice · Condolences
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
           <div
             style={{
-              fontSize: title.length > 42 ? 52 : 64,
-              fontWeight: 700,
-              lineHeight: 1.1,
-              maxWidth: 1000,
+              width: 1168,
+              height: 598,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              padding: "48px 56px",
+              background: "#d4e6cb",
+              border: "8px solid #1a365d",
             }}
           >
-            {title}
-          </div>
-          <div style={{ fontSize: 32, color: "#4a5d73", maxWidth: 920, lineHeight: 1.35 }}>
-            {line}
-          </div>
-          <div style={{ fontSize: 28, marginTop: 8 }}>— {from}</div>
-        </div>
+            <div
+              style={{
+                display: "flex",
+                fontSize: 22,
+                color: "#5f9448",
+                letterSpacing: 4,
+                textTransform: "uppercase",
+              }}
+            >
+              {"ST Joe's Computer Hospice - Condolences"}
+            </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontFamily: "monospace",
-            fontSize: 20,
-            letterSpacing: 2,
-            textTransform: "uppercase",
-            color: "#8a5a2b",
-          }}
-        >
-          <span>sorry your time is up</span>
-          <span style={{ color: "#1a365d" }}>stjoeshospice.com/condolences</span>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div
+                style={{
+                  display: "flex",
+                  fontSize: title.length > 40 ? 48 : 58,
+                  fontWeight: 700,
+                  color: "#1a365d",
+                  lineHeight: 1.15,
+                  marginBottom: 20,
+                }}
+              >
+                {title}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  fontSize: 30,
+                  color: "#4a5d73",
+                  lineHeight: 1.3,
+                  marginBottom: 18,
+                }}
+              >
+                {line}
+              </div>
+              <div style={{ display: "flex", fontSize: 26, color: "#1a365d" }}>
+                - {from}
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                fontSize: 20,
+                color: "#8a5a2b",
+                textTransform: "uppercase",
+                letterSpacing: 2,
+              }}
+            >
+              <div style={{ display: "flex" }}>sorry your time is up</div>
+              <div style={{ display: "flex", color: "#1a365d" }}>stjoeshospice.com</div>
+            </div>
+          </div>
         </div>
-      </div>
-    ),
-    { ...size }
-  )
+      ),
+      {
+        width: 1200,
+        height: 630,
+      }
+    )
+  } catch (error) {
+    console.error("og/condolences failed", error)
+    return new Response("OG image failed", { status: 500 })
+  }
 }

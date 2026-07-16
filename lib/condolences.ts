@@ -7,5 +7,5 @@ export const CONDOLENCE_LINES = [
 
 export function condolenceTitle(machine: string) {
   const m = machine.trim() || "your machine"
-  return `We’re sorry for your ${m}.`
+  return `We're sorry for your ${m}.`
 }

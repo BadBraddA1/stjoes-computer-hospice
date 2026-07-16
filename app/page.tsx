@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { HappyCostermer } from "@/components/happy-costermer"
+import { VisitCounter } from "@/components/visit-counter"
 
 const services = [
   {
@@ -327,12 +328,15 @@ export default function HomePage() {
 
       <footer className="border-t border-line bg-ink py-10 text-card">
         <div className="mx-auto max-w-6xl px-6 sm:px-10">
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-            <div className="flex items-center gap-3">
-              <Image src="/logo-icon.png" alt="" width={40} height={40} className="h-10 w-10" />
-              <p className="font-[family-name:var(--font-display)] text-base font-semibold">
-                ST Joe&apos;s Computer Hospice
-              </p>
+          <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex flex-col items-center gap-4 sm:items-start">
+              <div className="flex items-center gap-3">
+                <Image src="/logo-icon.png" alt="" width={40} height={40} className="h-10 w-10" />
+                <p className="font-[family-name:var(--font-display)] text-base font-semibold">
+                  ST Joe&apos;s Computer Hospice
+                </p>
+              </div>
+              <VisitCounter />
             </div>
             <div className="flex flex-col items-center gap-2 sm:items-end">
               <a

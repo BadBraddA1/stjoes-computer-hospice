@@ -3,17 +3,18 @@ import { ChaplainChat } from "@/components/chaplain-chat"
 import { AmenityPageShell } from "@/lib/page-shell"
 
 export const metadata: Metadata = {
-  title: "Chaplain Chat | ST Joe's Computer Hospice",
-  description: "Scripted pastoral chat with Fr. Joe. Every thread ends with sorry your time is up.",
+  title: "ST Joe's AI | ST Joe's Computer Hospice",
+  description:
+    "Campus care chat for dying machines. ST Joe's AI listens, rarely repairs, and walks you to the right ward.",
 }
 
 export default function ChaplainPage() {
   return (
     <AmenityPageShell
-      ticker={["Fr. Joe on call", "grace with a ground pin", "confess your USB sins"]}
-      kicker="Pastoral care · Rm 205"
-      title="Chaplain office"
-      copy="Fr. Joe answers in character about dying machines. Corner widget for quick confessions; full desk here."
+      ticker={["ST Joe's AI", "campus care online", "grace with a ground pin", "sorry your time is up"]}
+      kicker="Campus care · Rm 205"
+      title="ST Joe's AI"
+      copy="Ask about dying machines. Get walked to the right gag ward. Corner widget for quick check-ins; full desk here."
       excludeHref="/chaplain"
     >
       <ChaplainChat />

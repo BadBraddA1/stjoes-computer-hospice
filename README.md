@@ -26,9 +26,9 @@ Hospice parody site with:
 - **Admit a device** → fake case id like `GRIEF-404` (no email)
 - Random **Code Beige** toasts + occasional full-screen “Remain calm” flash
 - **Lobby PA** announcements + **battery %** (bottom-left) that slowly drains / dims when idle
-- **Ask Fr. Joe** — sitewide chaplain chat widget (bottom-right). Talks via **OpenAI** when `OPENAI_API_KEY` is set; otherwise uses smarter offline pastoral replies (still varies by what you say — no more “sorry your time is up” on every line)
+- **ST Joe's AI** — sitewide campus care chat widget (bottom-right). Talks via **OpenAI** when `OPENAI_API_KEY` is set; otherwise uses smarter offline replies
 
-### Fr. Joe AI (optional)
+### ST Joe's AI (optional)
 
 ```bash
 # local
@@ -39,9 +39,9 @@ cp .env.example .env.local
 vercel env add OPENAI_API_KEY
 ```
 
-Uses `gpt-4o-mini` through `/api/chaplain`. Stay-in-character system prompt lives in `lib/fr-joe.ts`.
+Uses `gpt-4o-mini` through `/api/chaplain`. Persona prompt lives in `lib/fr-joe.ts` (**ST Joe's AI**).
 
-When a ward would help, Fr. Joe can **walk you into a gag room** (grief stages, Call Doctor, vigil, DNR, etc.) and the chat shows an **Enter room →** button. The Ask Fr. Joe widget stays open across pages so he can keep guiding after you arrive.
+When a ward would help, ST Joe's AI can **walk you into a gag room** (grief stages, Call Doctor, vigil, DNR, etc.) with an **Enter room →** button. The widget stays open across pages so it can keep guiding after you arrive.
 - Easter eggs: type `joe3`, Konami, or **Ctrl+Alt+Delete** → gentle BSOD
 - Biz-card QR welcome: `/?from=bizcard` (also `card`, `qr`)
 - Footer **grief sessions** view counter (CounterAPI, once per tab session)
@@ -65,7 +65,7 @@ Home campus is a **hospital floor directory** (wings, room numbers, “You are h
 | `/condolences` | Condolence card + share / OG + PNG |
 | `/last-rites` | Name + OS → eulogy + share / OG |
 | `/waiting-room` | Fake lobby webcam + patient ticker |
-| `/chaplain` | Scripted Fr. Joe chat (always ends “sorry your time is up”) |
+| `/chaplain` | **ST Joe's AI** campus care desk (also corner widget) |
 | `/gift-shop` | Fake merch cart that always fails checkout |
 | `/bingo` | Visiting-hours symptom bingo → Code Beige |
 | `/family` | Family conference → always hospice |

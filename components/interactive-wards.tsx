@@ -90,7 +90,7 @@ export function InteractiveWards({
                             <span className="mt-0.5 block text-sm text-muted">{item.copy}</span>
                           </span>
                           <span className="mt-2 shrink-0 font-mono text-[11px] uppercase tracking-[0.16em] text-accent sm:mt-0">
-                            {isChaplain ? "Enter office →" : "Enter room →"}
+                            {isChaplain ? "Open AI desk →" : "Enter room →"}
                           </span>
                         </span>
                       </>
@@ -108,7 +108,7 @@ export function InteractiveWards({
                               onClick={() => openChaplainChat()}
                               className="border-t border-line px-4 py-3 text-left font-mono text-[11px] uppercase tracking-wider text-accent hover:bg-accent-soft/40 sm:w-40 sm:border-t-0 sm:border-l focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent"
                             >
-                              Or page Fr. Joe ↓
+                              Or open corner chat ↓
                             </button>
                           </div>
                         ) : (
@@ -126,7 +126,7 @@ export function InteractiveWards({
 
           <div className="flex flex-col gap-2 border-t border-line bg-bg px-5 py-3 font-mono text-[11px] uppercase tracking-wider text-muted sm:flex-row sm:items-center sm:justify-between sm:px-7">
             <span>Quiet hours · no forced firmware</span>
-            <span>Emergencies: Ask Fr. Joe (corner) · Code Beige</span>
+            <span>Emergencies: ST Joe&apos;s AI (corner) · Code Beige</span>
           </div>
         </div>
 

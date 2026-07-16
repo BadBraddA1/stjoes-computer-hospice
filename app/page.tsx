@@ -269,7 +269,7 @@ export default function HomePage() {
               <p>It is not failure to unplug.</p>
               <p className="mt-2">It is grace with a ground pin.</p>
             </blockquote>
-            <p className="mt-5 text-sm text-muted">— Fr. Joe, Staff Tech-Priest</p>
+            <p className="mt-5 text-sm text-muted">— ST Joe&apos;s AI, Campus Care</p>
           </aside>
         </div>
       </section>

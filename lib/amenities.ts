@@ -134,9 +134,9 @@ export const amenities = [
     href: "/chaplain",
     ward: "Rm 205",
     wing: "chapel",
-    badge: "On call",
-    title: "Chaplain office",
-    copy: "Fr. Joe also appears as Ask Fr. Joe in the corner.",
+    badge: "AI desk",
+    title: "ST Joe's AI",
+    copy: "Campus care chat — also in the corner on every page.",
   },
   {
     href: "/bingo",

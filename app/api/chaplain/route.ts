@@ -44,7 +44,7 @@ export async function POST(request: Request) {
   const turns = normalize(body.messages)
   const lastUser = [...turns].reverse().find((t) => t.role === "user")
   if (!lastUser) {
-    return Response.json({ error: "Say something to Fr. Joe first." }, { status: 400 })
+    return Response.json({ error: "Say something to ST Joe's AI first." }, { status: 400 })
   }
 
   const key = process.env.OPENAI_API_KEY?.trim()

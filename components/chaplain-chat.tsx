@@ -31,7 +31,7 @@ async function askFrJoe(messages: Msg[]): Promise<{ text: string; guide: Guide |
     error?: string
   } | null
   if (!res.ok) {
-    throw new Error(data?.error || "Fr. Joe stepped away briefly.")
+    throw new Error(data?.error || "ST Joe's AI stepped away briefly.")
   }
   return {
     text: data?.text?.trim() || "The chapel is quiet. Try again in a moment.",
@@ -51,7 +51,7 @@ export function ChaplainConversation({
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "chaplain",
-      text: "Peace be with your USB ports. What weighs on the hard drive today? If a ward would help, I'll walk you there.",
+      text: "ST Joe's AI online. Peace be with your USB ports. What weighs on the hard drive today? If a ward would help, I'll walk you there.",
     },
   ])
   const [input, setInput] = useState("")
@@ -107,7 +107,7 @@ export function ChaplainConversation({
             }`}
           >
             <p className="font-mono text-[10px] uppercase tracking-wider text-accent">
-              {m.role === "you" ? "You" : "Fr. Joe"}
+              {m.role === "you" ? "You" : "ST Joe's AI"}
             </p>
             <p className="mt-1">{m.text}</p>
             {m.role === "chaplain" && m.guide ? (
@@ -122,7 +122,7 @@ export function ChaplainConversation({
         ))}
         {busy ? (
           <div className="mr-6 rounded-2xl border border-line bg-bg px-3 py-2.5 text-sm text-muted">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-accent">Fr. Joe</p>
+            <p className="font-mono text-[10px] uppercase tracking-wider text-accent">ST Joe&apos;s AI</p>
             <p className="mt-1 animate-pulse">Consulting the toner spirits…</p>
           </div>
         ) : null}
@@ -138,7 +138,7 @@ export function ChaplainConversation({
         }
       >
         <label className="sr-only" htmlFor={fieldId}>
-          Message to the chaplain
+          Message to ST Joe&apos;s AI
         </label>
         <input
           id={fieldId}
@@ -154,7 +154,7 @@ export function ChaplainConversation({
           disabled={busy || !input.trim()}
           className="min-h-11 shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50"
         >
-          {busy ? "…" : "Confess"}
+          {busy ? "…" : "Ask"}
         </button>
       </form>
     </div>
@@ -166,20 +166,20 @@ export function ChaplainChat() {
   return (
     <div className="mx-auto max-w-xl px-6 py-12 sm:px-10">
       <p className="text-center font-mono text-xs uppercase tracking-[0.28em] text-accent">
-        Pastoral care · Rm 205
+        Campus care · Rm 205
       </p>
       <h2 className="mt-3 text-center font-[family-name:var(--font-display)] text-3xl font-bold">
-        Chaplain office
+        ST Joe&apos;s AI
       </h2>
       <p className="mx-auto mt-3 max-w-md text-center text-muted">
-        Fr. Joe listens in character — battery grief, beach balls, printers, the works. Quicker
-        visits:{" "}
+        Campus care chat for dying machines — battery grief, beach balls, printers, the works.
+        Quicker visits:{" "}
         <button
           type="button"
           onClick={() => openChaplainChat()}
           className="font-semibold text-accent underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
-          Ask Fr. Joe
+          ST Joe&apos;s AI
         </button>{" "}
         in the corner.
       </p>
@@ -238,13 +238,13 @@ export function ChaplainWidget() {
           <div className="flex items-start justify-between gap-3 bg-ink px-4 py-3 text-card">
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-soft">
-                Pastoral help · online
+                Campus care · online
               </p>
               <h2
                 id="chaplain-widget-title"
                 className="mt-0.5 font-[family-name:var(--font-display)] text-lg font-bold"
               >
-                Ask Fr. Joe
+                ST Joe&apos;s AI
               </h2>
               <p className="mt-0.5 text-xs text-white/65">Listens · rarely repairs · often anoints</p>
             </div>
@@ -253,7 +253,7 @@ export function ChaplainWidget() {
               type="button"
               onClick={() => setOpen(false)}
               className="rounded-full border border-white/25 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide hover:border-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft"
-              aria-label="Close chaplain chat"
+              aria-label="Close ST Joe's AI chat"
             >
               ×
             </button>
@@ -267,9 +267,9 @@ export function ChaplainWidget() {
           role="status"
           className="anim-rise max-w-[14rem] rounded-2xl border border-line bg-card px-3 py-2 text-sm text-ink shadow-md"
         >
-          Need pastoral IT support?
+          Need campus care support?
           <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-wider text-accent">
-            Fr. Joe is available
+            ST Joe&apos;s AI is available
           </span>
         </div>
       ) : null}
@@ -282,13 +282,13 @@ export function ChaplainWidget() {
         className="flex min-h-14 items-center gap-3 rounded-full border border-ink/15 bg-ink px-4 py-3 text-left text-card shadow-[0_16px_40px_rgba(26,54,93,0.35)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent font-mono text-xs font-bold text-white">
-          FJ
+          SJ
           <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-ink bg-accent-soft" />
         </span>
         <span>
-          <span className="block text-sm font-semibold leading-tight">Ask Fr. Joe</span>
+          <span className="block text-sm font-semibold leading-tight">ST Joe&apos;s AI</span>
           <span className="block font-mono text-[10px] uppercase tracking-wider text-white/55">
-            Chaplain chat
+            Campus care chat
           </span>
         </span>
       </button>

@@ -60,17 +60,20 @@ export function LastWordsForm() {
       <p className="mt-2 text-sm text-muted">
         Leave a one-liner for the lobby ticker.
       </p>
-      <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        maxLength={80}
-        placeholder="RIP beige tower — you were warm in winter"
-        className="mt-4 w-full rounded-xl border border-line bg-bg px-4 py-3 outline-none focus:border-accent"
-        required
-      />
+      <label className="mt-4 block">
+        <span className="text-sm text-muted">Ticker line</span>
+        <input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          maxLength={80}
+          placeholder="RIP beige tower — you were warm in winter"
+          className="mt-2 w-full rounded-xl border border-line bg-bg px-4 py-3 outline-none focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          required
+        />
+      </label>
       <button
         type="submit"
-        className="mt-4 inline-flex rounded-full bg-accent px-6 py-2.5 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110"
+        className="mt-4 inline-flex min-h-11 rounded-full bg-accent px-6 py-2.5 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         {ok ? "Etched" : "Send to ticker"}
       </button>

@@ -2,6 +2,9 @@
 
 import Image from "next/image"
 import { useMemo, useState } from "react"
+import { ShareButtons } from "@/components/share-buttons"
+
+const SITE = "https://stjoeshospice.com"
 
 export function DischargePapers() {
   const [name, setName] = useState("ThinkPad T420")
@@ -16,6 +19,7 @@ export function DischargePapers() {
     []
   )
   const device = name.trim() || "Unnamed Device"
+  const shareUrl = `${SITE}/discharge?for=${encodeURIComponent(device)}`
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-12 sm:px-10">
@@ -25,7 +29,7 @@ export function DischargePapers() {
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-2 w-full rounded-xl border border-line bg-card px-4 py-3 outline-none focus:border-accent"
+            className="mt-2 w-full rounded-xl border border-line bg-card px-4 py-3 outline-none focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           />
         </label>
         <label className="block">
@@ -33,7 +37,7 @@ export function DischargePapers() {
           <select
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            className="mt-2 w-full rounded-xl border border-line bg-card px-4 py-3 outline-none focus:border-accent"
+            className="mt-2 w-full rounded-xl border border-line bg-card px-4 py-3 outline-none focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             <option>Discharged against medical advice</option>
             <option>Released to drawer forever</option>
@@ -42,14 +46,15 @@ export function DischargePapers() {
           </select>
         </label>
       </div>
-      <div className="no-print mb-8 flex justify-center">
+      <div className="no-print mb-8 flex flex-wrap justify-center gap-3">
         <button
           type="button"
           onClick={() => window.print()}
-          className="inline-flex rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110"
+          className="inline-flex min-h-11 rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           Print / Save as PDF
         </button>
+        <ShareButtons url={shareUrl} title={`Discharge papers for ${device} — ST Joe's`} />
       </div>
 
       <article className="dnr-sheet rounded-[28px] border-2 border-ink bg-card p-8 sm:p-12">

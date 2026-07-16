@@ -11,28 +11,10 @@ pnpm dev
 
 ## Deploy
 
-Vercel project: **stjoes-computer-hospice** (GitHub linked). Domains already attached:
+Vercel project: **stjoes-computer-hospice** (GitHub linked). Domains:
 
 - `stjoeshospice.com` → production
 - `www.stjoeshospice.com` → 308 → apex
-
-### DNS (Cloudflare registrar)
-
-Nameservers are still on Cloudflare (`erin` / `eugene`). Until DNS points at Vercel the public hostname won’t resolve.
-
-**Option A — DNS records (keep Cloudflare NS)** — DNS only / grey cloud:
-
-| Type | Name | Content |
-| --- | --- | --- |
-| A | `@` | `76.76.21.21` |
-| CNAME | `www` | `cname.vercel-dns.com` |
-
-**Option B — Vercel nameservers** — in Cloudflare → Domain Registration → stjoeshospice.com → update NS to:
-
-- `ns1.vercel-dns.com`
-- `ns2.vercel-dns.com`
-
-API note: the local Cloudflare token can read existing zones but can’t create `stjoeshospice.com` or edit its DNS yet — finish one of the options above (or drop a Zone.DNS Edit token) and it goes live.
 
 ## What’s here
 
@@ -42,60 +24,57 @@ Hospice parody site with:
 - Patient board, visiting hours, happy costermer YouTube bit
 - **Lobby last words** ticker (seeded + visitor lines in localStorage)
 - **Admit a device** → fake case id like `GRIEF-404` (no email)
-- Random **Code Beige** (etc.) toast alerts
-- Easter egg: type `joe3` or Konami → Joe 3 hiring roast
-- Footer **grief sessions** view counter (once per tab session via CounterAPI)
+- Random **Code Beige** toasts + occasional full-screen “Remain calm” flash
+- **Lobby PA** announcements + corner **battery %** that slowly drains / dims when idle
+- Easter eggs: type `joe3`, Konami, or **Ctrl+Alt+Delete** → gentle BSOD
+- Biz-card QR welcome: `/?from=bizcard` (also `card`, `qr`)
+- Footer **grief sessions** view counter (CounterAPI, once per tab session)
 
 ### Interactive wards (home campus + routes)
 
 | Route | What it does |
 | --- | --- |
-| `/is-it-time` | Yes/no flowchart |
-| `/grief` | Five stages quiz |
-| `/call-doctor` | **Call Doctor** — hold music + live queue # that keeps rising as Care+ cuts ahead |
-| `/dnr` | DNR certificate — 1920×1080 screensaver PNG (logo + QR) or print |
-| `/discharge` | Discharge papers |
-| `/doctors-note` | Fake doctor’s excuse note |
-| `/memorial` | Memorial wall |
+| `/is-it-time` | Yes/no flowchart + miracle / Best Buy / ICD-PC sticker endings |
+| `/grief` | Five stages quiz → shareable stage diagnosis + OG |
+| `/call-doctor` | IVR menu, genre-shifting hold music, Care+ cut-ins, voicemail void |
+| `/dnr` | DNR certificate — 1920×1080 screensaver PNG or print |
+| `/discharge` | Discharge papers + share / OG |
+| `/doctors-note` | Fake doctor’s excuse + share / OG |
+| `/memorial` | Memorial wall, candles, chime, Patient of the Week |
 | `/vigil` | Power-LED vigil + share / OG |
 | `/condolences` | Condolence card + share / OG + PNG |
-| `/hiring` | Joe 3 hiring quiz |
+| `/last-rites` | Name + OS → eulogy + share / OG |
+| `/waiting-room` | Fake lobby webcam + patient ticker |
+| `/chaplain` | Scripted Fr. Joe chat (always ends “sorry your time is up”) |
+| `/gift-shop` | Fake merch cart that always fails checkout |
+| `/bingo` | Visiting-hours symptom bingo → Code Beige |
+| `/family` | Family conference → always hospice |
+| `/soundboard` | Web-audio pads (fan, HDD click, XP, hold sting…) |
+| `/pack` | Certificate pack: admit → DNR → discharge → condolence downloads |
+| `/hiring` | Joe 3 quiz + benefits lounge, visitor badge, resume reject |
 
-Home page ward cards open these bits **inline**. Full pages remain for sharing (`#ward-call-doctor`, etc.).
+Home ward cards open bits **inline**. Full pages remain for sharing (`#ward-call-doctor`, etc.).
 
 ### Dynamic Open Graph
 
-- Vigil share: `/vigil?for=ThinkPad` → `/api/og/vigil?for=ThinkPad`
-- Condolence share: `/condolences?machine=OptiPlex&from=Brad&line=0` → `/api/og/condolences?...`
-
-Previews are generated with `next/og` (1200×630) so iMessage / Slack / Twitter get the fun card, not a generic homepage image.
-
-### We’re Hiring (`/hiring`)
-
-Playful dead-end careers page. One intake question: **Is your name Joe 3?**
-
-- **Yes** → ~30 unique rejections (e.g. “Nice try. You don’t look like Joe 3.”).
-- **No** → ~30 unique wise-exit lines (e.g. “Good. You don’t want to work here.”).
-
-“Try again” rotates punchlines without immediate repeats. Linked from the home hero and footer. Still not a real job.
-
-OG / Twitter preview (`app/opengraph-image.jpg`) shows the Head of Hospice Care portrait with brand colors — same pattern as the LECYC sites.
-
-Footer uses the standard BraddCorp line: “Powered By BraddCorp © YEAR. All Rights Reserved.” → https://braddcorp.com
-
-## Fake biz cards
-
-Print files live in [`print/biz-cards/`](print/biz-cards/) — open **`st-joes-biz-cards-letter.pdf`** for a 10-up Letter sheet (front + back with QR to the site). Details in that folder’s README.
-
-## Logos & portraits
-
-In `public/`:
-
-| File | Tagline |
+| Bit | Example |
 | --- | --- |
-| `logo.jpg` / `logo-b.jpg` | **Primary** — “sorry your time is up” |
-| `logo-a.jpg` | “We bring new life to your technology.” |
-| `logo-c.jpg` | Meramec edition |
-| `logo-icon.png` | Icon crop for favicon / footer |
-| `head-of-care.png` | Circular portrait — Head of Hospice Care (headset optional, empathy required) |
-| `head-of-care.mp4` | Short bedside address (Hedra) — shown beside the portrait on the home page |
+| Vigil | `/vigil?for=ThinkPad` → `/api/og/vigil` |
+| Condolences | `/condolences?machine=…&from=…` → `/api/og/condolences` |
+| Grief stage | `/grief?stage=bargain` → `/api/og/grief` |
+| Hiring badge | `/hiring?badge=Brad` → `/api/og/hiring` |
+| Discharge | `/discharge?for=OptiPlex` → `/api/og/discharge` |
+| Doctor’s note | `/doctors-note?for=OptiPlex` → `/api/og/doctors-note` |
+| Last rites | `/last-rites?for=…&os=…` → `/api/og/last-rites` |
+
+Previews use `next/og` (1200×630). Fancy Unicode is stripped so PNGs don’t come back empty.
+
+### Fake biz cards
+
+Print files in [`print/biz-cards/`](print/biz-cards/). Point QR codes at `https://stjoeshospice.com/?from=bizcard` for the welcome roast.
+
+### Logos & portraits
+
+In `public/`: `logo.jpg` / variants, `logo-icon.png`, `head-of-care.png`, `head-of-care.mp4`.
+
+Footer: “Powered By BraddCorp © YEAR. All Rights Reserved.” → https://braddcorp.com

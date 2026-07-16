@@ -2,10 +2,34 @@ import type { Metadata } from "next"
 import { DischargePapers } from "@/components/discharge-papers"
 import { AmenityShowcase } from "@/components/amenity-showcase"
 import { PageHero, PageTicker, SiteFooter } from "@/components/site-chrome"
+import { cleanOgText } from "@/lib/og-clean"
 
-export const metadata: Metadata = {
-  title: "Discharge Papers | ST Joe's Computer Hospice",
-  description: "Official-looking discharge paperwork for machines released against medical advice.",
+const siteUrl = "https://stjoeshospice.com"
+
+type Props = { searchParams: Promise<{ for?: string }> }
+
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const { for: nameRaw } = await searchParams
+  const name = cleanOgText(nameRaw || "").slice(0, 40)
+  const title = name
+    ? `Discharge: ${name} | ST Joe's Computer Hospice`
+    : "Discharge Papers | ST Joe's Computer Hospice"
+  const description = name
+    ? `${name} released against medical advice. Still won't boot.`
+    : "Official-looking discharge paperwork for machines released against medical advice."
+  const og = new URL(`${siteUrl}/api/og/discharge`)
+  if (name) og.searchParams.set("for", name)
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [{ url: og.toString(), width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description, images: [og.toString()] },
+  }
 }
 
 export default function DischargePage() {

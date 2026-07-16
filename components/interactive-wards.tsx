@@ -13,6 +13,15 @@ import { MemorialWall } from "@/components/memorial-wall"
 import { VigilLight } from "@/components/vigil-light"
 import { CondolenceCard } from "@/components/condolence-card"
 import { HiringQuiz } from "@/components/hiring-quiz"
+import { HiringLounge } from "@/components/hiring-lounge"
+import { LastRites } from "@/components/last-rites"
+import { WaitingRoomCam } from "@/components/waiting-room-cam"
+import { ChaplainChat } from "@/components/chaplain-chat"
+import { GiftShop } from "@/components/gift-shop"
+import { VisitingBingo } from "@/components/visiting-bingo"
+import { FamilyConference } from "@/components/family-conference"
+import { Soundboard } from "@/components/soundboard"
+import { CertificatePack } from "@/components/certificate-pack"
 
 type WardKey = Amenity["href"]
 
@@ -21,7 +30,11 @@ function WardPanel({ href }: { href: WardKey }) {
     case "/is-it-time":
       return <IsItTimeFlow />
     case "/grief":
-      return <GriefQuiz />
+      return (
+        <Suspense fallback={<p className="py-10 text-center text-muted">Opening pastoral care…</p>}>
+          <GriefQuiz />
+        </Suspense>
+      )
     case "/call-doctor":
       return <CallDoctor />
     case "/dnr":
@@ -44,8 +57,31 @@ function WardPanel({ href }: { href: WardKey }) {
           <CondolenceCard />
         </Suspense>
       )
+    case "/last-rites":
+      return <LastRites />
+    case "/waiting-room":
+      return <WaitingRoomCam />
+    case "/chaplain":
+      return <ChaplainChat />
+    case "/gift-shop":
+      return <GiftShop />
+    case "/bingo":
+      return <VisitingBingo />
+    case "/family":
+      return <FamilyConference />
+    case "/soundboard":
+      return <Soundboard />
+    case "/pack":
+      return <CertificatePack />
     case "/hiring":
-      return <HiringQuiz />
+      return (
+        <div>
+          <HiringQuiz />
+          <div className="border-t border-line pt-6">
+            <HiringLounge />
+          </div>
+        </div>
+      )
     default:
       return null
   }
@@ -120,7 +156,7 @@ export function InteractiveWards({
                 onClick={() => select(item.href)}
                 aria-expanded={selected}
                 aria-controls={panelId}
-                className={`group flex h-full flex-col rounded-2xl border p-5 text-left shadow-[0_10px_30px_rgba(26,54,93,0.05)] transition ${
+                className={`group flex h-full min-h-[11rem] flex-col rounded-2xl border p-5 text-left shadow-[0_10px_30px_rgba(26,54,93,0.05)] transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
                   selected
                     ? "border-accent bg-accent-soft/60 ring-2 ring-accent/30"
                     : "border-line bg-bg hover:-translate-y-0.5 hover:border-accent"
@@ -163,7 +199,7 @@ export function InteractiveWards({
               <div className="flex flex-wrap gap-2">
                 <Link
                   href={active.href}
-                  className="inline-flex rounded-full border border-white/25 px-4 py-2 text-xs font-semibold uppercase tracking-wide transition hover:border-accent-soft hover:text-accent-soft"
+                  className="inline-flex min-h-11 items-center rounded-full border border-white/25 px-4 py-2 text-xs font-semibold uppercase tracking-wide transition hover:border-accent-soft hover:text-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft"
                 >
                   Open full page
                 </Link>
@@ -173,7 +209,7 @@ export function InteractiveWards({
                     setOpen(null)
                     window.history.replaceState(null, "", window.location.pathname)
                   }}
-                  className="inline-flex rounded-full bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:brightness-110"
+                  className="inline-flex min-h-11 items-center rounded-full bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   Close
                 </button>

@@ -6,7 +6,7 @@ import { PageHero, PageTicker, SiteFooter } from "@/components/site-chrome"
 export const metadata: Metadata = {
   title: "Call Doctor | ST Joe's Computer Hospice",
   description:
-    "On-call physician line at ST Joe's Computer Hospice. Watch your queue number rise as Care+ cuts ahead.",
+    "IVR tree, genre-shifting hold music, Care+ cut-ins, and a voicemail that never reaches anyone.",
 }
 
 export default function CallDoctorPage() {
@@ -14,17 +14,17 @@ export default function CallDoctorPage() {
     <main className="flex-1">
       <PageTicker
         items={[
-          "on-call",
+          "press 1 for denial",
           "please hold",
-          "Care+ to the front",
-          "your place in line is flexible",
+          "now playing: elevator remorse",
+          "ETA forever (revised)",
           "sorry your time is up",
         ]}
       />
       <PageHero
         kicker="Telecommunications chapel"
         title="Call Doctor"
-        copy="Your call is important. Care+ calls are more important. Watch the counter."
+        copy="Navigate the IVR. Enter the queue. Survive genre changes. Leave a voicemail in /dev/null."
       />
       <CallDoctor />
       <AmenityShowcase

@@ -153,6 +153,19 @@ body {
   }
 }
 
+@keyframes code-flash-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.code-flash {
+  animation: code-flash-in 0.25s ease-out both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -167,7 +180,8 @@ body {
   .anim-rise-delay-2,
   .anim-pulse,
   .ticker-track,
-  .led-vigil {
+  .led-vigil,
+  .code-flash {
     animation: none !important;
   }
 

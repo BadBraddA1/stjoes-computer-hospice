@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { Suspense } from "react"
 import { HappyCostermer } from "@/components/happy-costermer"
 import { InteractiveWards } from "@/components/interactive-wards"
 import { SiteFooter } from "@/components/site-chrome"
@@ -6,6 +7,9 @@ import { LastWordsTicker, LastWordsForm } from "@/components/last-words"
 import { AdmitDevice } from "@/components/admit-device"
 import { CodeAlerts } from "@/components/code-alerts"
 import { EasterEgg } from "@/components/easter-egg"
+import { IdleBattery } from "@/components/idle-battery"
+import { LobbyPA } from "@/components/lobby-pa"
+import { BizcardWelcome } from "@/components/bizcard-welcome"
 
 const services = [
   {
@@ -57,6 +61,11 @@ export default function HomePage() {
       <LastWordsTicker />
       <CodeAlerts />
       <EasterEgg />
+      <IdleBattery />
+      <LobbyPA />
+      <Suspense fallback={null}>
+        <BizcardWelcome />
+      </Suspense>
 
       <header className="relative overflow-hidden">
         <div

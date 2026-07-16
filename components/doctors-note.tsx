@@ -1,6 +1,9 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import { ShareButtons } from "@/components/share-buttons"
+
+const SITE = "https://stjoeshospice.com"
 
 export function DoctorsNote() {
   const [name, setName] = useState("OptiPlex")
@@ -15,6 +18,7 @@ export function DoctorsNote() {
     []
   )
   const device = name.trim() || "the device"
+  const shareUrl = `${SITE}/doctors-note?for=${encodeURIComponent(device)}`
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-12 sm:px-10">
@@ -24,7 +28,7 @@ export function DoctorsNote() {
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-2 w-full rounded-xl border border-line bg-card px-4 py-3 outline-none focus:border-accent"
+            className="mt-2 w-full rounded-xl border border-line bg-card px-4 py-3 outline-none focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           />
         </label>
         <label className="block">
@@ -32,18 +36,19 @@ export function DoctorsNote() {
           <input
             value={days}
             onChange={(e) => setDays(e.target.value)}
-            className="mt-2 w-full rounded-xl border border-line bg-card px-4 py-3 outline-none focus:border-accent"
+            className="mt-2 w-full rounded-xl border border-line bg-card px-4 py-3 outline-none focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           />
         </label>
       </div>
-      <div className="no-print mb-8 flex justify-center">
+      <div className="no-print mb-8 flex flex-wrap justify-center gap-3">
         <button
           type="button"
           onClick={() => window.print()}
-          className="inline-flex rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110"
+          className="inline-flex min-h-11 rounded-full bg-accent px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           Print / Save as PDF
         </button>
+        <ShareButtons url={shareUrl} title={`Doctor's note for ${device} — ST Joe's`} />
       </div>
 
       <article className="dnr-sheet rounded-[28px] border-2 border-ink bg-card p-8 sm:p-12">

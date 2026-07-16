@@ -1,17 +1,38 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import { Suspense } from "react"
 import { HiringQuiz } from "@/components/hiring-quiz"
+import { HiringLounge } from "@/components/hiring-lounge"
 import { AmenityShowcase } from "@/components/amenity-showcase"
 import { PageTicker, SiteFooter } from "@/components/site-chrome"
+import { cleanOgText } from "@/lib/og-clean"
 
-export const metadata: Metadata = {
-  title: "We're Hiring | ST Joe's Computer Hospice",
-  description:
-    "Join the ward. Or don't. First question: is your name Joe 3? Comfort care for dying machines — and one very exclusive hiring process.",
-  openGraph: {
-    title: "We're Hiring | ST Joe's Computer Hospice",
-    description: "Is your name Joe 3? Answer carefully. Positions may or may not exist.",
-  },
+const siteUrl = "https://stjoeshospice.com"
+
+type Props = { searchParams: Promise<{ badge?: string }> }
+
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const { badge } = await searchParams
+  const name = cleanOgText(badge || "").slice(0, 28)
+  const title = name
+    ? `${name} · Not Joe 3 | ST Joe's Computer Hospice`
+    : "We're Hiring | ST Joe's Computer Hospice"
+  const description = name
+    ? `Visitor badge issued to ${name}. Status: Not Joe 3.`
+    : "Is your name Joe 3? Fake benefits, visitor badges, and a resume drop that always rejects."
+  const og = new URL(`${siteUrl}/api/og/hiring`)
+  if (name) og.searchParams.set("badge", name)
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [{ url: og.toString(), width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description, images: [og.toString()] },
+  }
 }
 
 export default function HiringPage() {
@@ -44,8 +65,8 @@ export default function HiringPage() {
             We&apos;re hiring
           </h1>
           <p className="anim-rise-delay-2 mx-auto mt-5 max-w-lg text-lg leading-relaxed text-muted">
-            Openings in palliative performance, last rites for HDDs, and looking solemnly at a
-            spinning beach ball. One screening question. Zero escape routes.
+            One screening question, a fake benefits lounge, visitor badges, and a resume drop that
+            rejects on principle.
           </p>
           <Image
             src="/logo-icon.png"
@@ -62,9 +83,12 @@ export default function HiringPage() {
           Hiring intake question
         </h2>
         <HiringQuiz />
-        <p className="mx-auto mt-10 max-w-md text-center font-mono text-xs text-muted">
-          Equal opportunity: all applicants carefully reviewed.
-        </p>
+      </section>
+
+      <section className="border-t border-line bg-band py-14">
+        <Suspense fallback={null}>
+          <HiringLounge />
+        </Suspense>
       </section>
 
       <AmenityShowcase

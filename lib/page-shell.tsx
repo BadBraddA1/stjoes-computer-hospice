@@ -23,8 +23,8 @@ export function AmenityPageShell({
       <PageHero kicker={kicker} title={title} copy={copy} />
       {children}
       <AmenityShowcase
-        title="More wards"
-        copy="Keep touring the campus. The printers are emotionally available."
+        title="Other rooms"
+        copy="Enter another room — or hit Main lobby to return to the directory."
         excludeHref={excludeHref}
         id="more-wards"
       />

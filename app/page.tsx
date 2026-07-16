@@ -126,7 +126,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <InteractiveWards defaultOpen="/is-it-time" />
+      <InteractiveWards />
 
       <section className="border-y border-line bg-band py-16 sm:py-20" id="care">
         <div className="mx-auto max-w-6xl px-6 sm:px-10">

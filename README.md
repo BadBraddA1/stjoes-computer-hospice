@@ -46,7 +46,7 @@ Uses `gpt-4o-mini` through `/api/chaplain`. Stay-in-character system prompt live
 
 ### Patient amenities directory (wayfinding)
 
-Home campus is a **hospital floor directory** (wings, room numbers, “You are here”), not a feature-card grid. Tap a room plaque to enter; full pages remain for sharing.
+Home campus is a **hospital floor directory** (wings, room numbers, “You are here”). Tap a room plaque to **open that room’s page**. Every room page has a sticky **Main lobby** bar (`/#amenities`) to return to the directory.
 
 ### Interactive wards (routes)
 

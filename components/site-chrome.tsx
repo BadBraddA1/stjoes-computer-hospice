@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { VisitCounter } from "@/components/visit-counter"
+import { LobbyNav } from "@/components/lobby-nav"
 import { amenities } from "@/lib/amenities"
 
 export function SiteFooter({ showCounter = true }: { showCounter?: boolean }) {
@@ -32,8 +33,11 @@ export function SiteFooter({ showCounter = true }: { showCounter?: boolean }) {
 
           <div className="flex flex-col items-center gap-2 text-center sm:items-end sm:text-right">
             <p className="text-sm text-white/65">stjoeshospice.com · sorry your time is up</p>
-            <Link href="/" className="text-sm font-semibold text-accent-soft transition hover:text-white">
-              ← Back to the wards
+            <Link
+              href="/#amenities"
+              className="text-sm font-semibold text-accent-soft transition hover:text-white"
+            >
+              ← Main lobby
             </Link>
           </div>
         </div>
@@ -59,17 +63,20 @@ export function SiteFooter({ showCounter = true }: { showCounter?: boolean }) {
 
 export function PageTicker({ items }: { items: string[] }) {
   return (
-    <div className="overflow-hidden border-b border-line bg-ink text-card">
-      <div className="ticker-track flex whitespace-nowrap py-2 font-mono text-xs tracking-wide uppercase">
-        {[0, 1].map((loop) => (
-          <div key={loop} className="flex shrink-0 gap-10 px-6" aria-hidden={loop === 1}>
-            {items.map((item) => (
-              <span key={`${loop}-${item}`}>{item}</span>
-            ))}
-          </div>
-        ))}
+    <>
+      <LobbyNav />
+      <div className="overflow-hidden border-b border-line bg-ink text-card">
+        <div className="ticker-track flex whitespace-nowrap py-2 font-mono text-xs tracking-wide uppercase">
+          {[0, 1].map((loop) => (
+            <div key={loop} className="flex shrink-0 gap-10 px-6" aria-hidden={loop === 1}>
+              {items.map((item) => (
+                <span key={`${loop}-${item}`}>{item}</span>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

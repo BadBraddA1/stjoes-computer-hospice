@@ -47,7 +47,7 @@ Hospice parody site with:
 | --- | --- |
 | `/is-it-time` | Yes/no flowchart → admit / vigil / not yet |
 | `/grief` | Five stages quiz (Denial → Acceptance) |
-| `/dnr` | Printable Do Not Resuscitate certificate |
+| `/dnr` | DNR certificate — **download 1920×1080 screensaver/wallpaper PNG** (logo + QR to site) or print/PDF |
 | `/memorial` | Memorial wall (seeded + notes saved in this browser) |
 | `/vigil` | Shareable power-LED vigil (`?for=MachineName`) — **dynamic Open Graph** preview |
 | `/condolences` | Condolence card (`?machine=&from=&line=`) — **dynamic Open Graph** + PNG download |

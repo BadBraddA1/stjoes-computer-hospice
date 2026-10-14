@@ -6,6 +6,10 @@
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "account_id": "3b39955f13b1fc5364775d978622d3e1",
   "workers_dev": true,
+  "routes": [
+    { "pattern": "stjoeshospice.com/*", "zone_name": "stjoeshospice.com" },
+    { "pattern": "www.stjoeshospice.com/*", "zone_name": "stjoeshospice.com" }
+  ],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"

@@ -39,7 +39,7 @@ cp .env.example .env.local
 vercel env add OPENAI_API_KEY
 ```
 
-Uses `gpt-4o-mini` through `/api/chaplain`. Persona prompt lives in `lib/fr-joe.ts` (**ST Joe's AI**).
+Uses `gpt-6-luna` through `/api/chaplain`. Persona prompt lives in `lib/fr-joe.ts` (**ST Joe's AI**).
 
 When a ward would help, ST Joe's AI can **walk you into a gag room** (grief stages, Call Doctor, vigil, DNR, etc.) with an **Enter room →** button. The widget stays open across pages so it can keep guiding after you arrive.
 - Easter eggs: type `joe3`, Konami, or **Ctrl+Alt+Delete** → gentle BSOD

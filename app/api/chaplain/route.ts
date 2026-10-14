@@ -55,7 +55,7 @@ export async function POST(request: Request) {
 
   try {
     const { text } = await generateText({
-      model: openai("gpt-4o-mini"),
+      model: openai("gpt-6-luna"),
       system: FR_JOE_SYSTEM,
       messages: turns.map((t) => ({ role: t.role, content: t.content })),
       temperature: 0.85,
